@@ -11,13 +11,27 @@
         <!-- Place favicon.ico in the root directory -->
         <link rel="apple-touch-icon" href="icon.png">
         
+        <script src="https://www.gstatic.com/firebasejs/4.6.0/firebase.js"></script>
+        <script>
+        // Initialize Firebase
+        var config = {
+        apiKey: "AIzaSyDy6-cn7XXZtTFy32uDJ_4lGuG4J8i7tjM",
+        authDomain: "rfpcounter.firebaseapp.com",
+        databaseURL: "https://rfpcounter.firebaseio.com",
+        projectId: "rfpcounter",
+        storageBucket: "",
+        messagingSenderId: "515544270946"
+        };
+        firebase.initializeApp(config);
+        </script>
+        
         <!-- Add Angular Library -->
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
         <script src="app.js">
         </script>
         
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
+        
         <!-- jQuery library -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
@@ -201,19 +215,5 @@ textarea {
             
         </div>
     </body>
-    
-    <script src="https://www.gstatic.com/firebasejs/4.6.0/firebase.js"></script>
-<script>
-  // Initialize Firebase
-  var config = {
-    apiKey: "AIzaSyDy6-cn7XXZtTFy32uDJ_4lGuG4J8i7tjM",
-    authDomain: "rfpcounter.firebaseapp.com",
-    databaseURL: "https://rfpcounter.firebaseio.com",
-    projectId: "rfpcounter",
-    storageBucket: "",
-    messagingSenderId: "515544270946"
-  };
-  firebase.initializeApp(config);
-</script>
     
 </html>
