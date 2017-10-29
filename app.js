@@ -3,6 +3,16 @@ var database = firebase.database();
 
 app.controller("SlotController", ['$scope', function ($scope) {
     
+    // Database functions 
+    
+    function writeUserData(userId, name, email, imageUrl) {
+    firebase.database().ref('users/' + userId).set({
+        username: name,
+        email: email,
+        profile_picture : imageUrl
+        });
+    }
+    
     $scope.welcome = "Hello World!";
     
     var rfpArray = ["10till11", "11till12","12till1","1till2","2till3","3till4","4till5","5till6","6till7","7till8"]
