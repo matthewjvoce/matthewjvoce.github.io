@@ -1,16 +1,6 @@
 var app = angular.module("RFPApp", []);
 var database = firebase.database();
 
-// Database functions 
-    
-    function writeUserData(userId, name, email, imageUrl) {
-    firebase.database().ref('users/' + userId).set({
-        username: name,
-        email: email,
-        profile_picture : imageUrl
-        });
-    }
-
 app.controller("SlotController", ['$scope', function ($scope) {
     
     $scope.welcome = "Hello World!";
