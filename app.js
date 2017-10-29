@@ -1,4 +1,5 @@
 var app = angular.module("RFPApp", []);
+var database = firebase.database();
 
 app.controller("SlotController", ['$scope', function ($scope) {
     
