@@ -212,7 +212,7 @@ textarea {
         };
         firebase.initializeApp(config);
             
-        var database = firebase.database().ref().child('RFPs', 'Total');
+        var database = firebase.database().ref().child('RFPs');
             
         $('#setTotal').click(function(){
             database.set({
