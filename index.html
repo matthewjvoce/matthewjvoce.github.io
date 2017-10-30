@@ -106,7 +106,7 @@ textarea {
                 
                 <div class="row text-center">
                 <div class="col-sm-12">
-                    <button ng-click= "setTotals()" type="button" class="btn btn-info">
+                    <button ng-click= "setTotals()" type="button" id="setTotal" class="btn btn-info">
                         <span class="glyphicon glyphicon-signal"></span>
                         Set Totals
                     </button>
@@ -212,11 +212,14 @@ textarea {
         };
         firebase.initializeApp(config);
             
-        var database = firebase.database();
+        var database = firebase.database().ref().child('RFPs', 'Total');
             
-        database.set({
-            
-        });  
+        $('#setTotal').click(function(){
+            database.set({
+            input1:$('input1').val()
+        }); 
+        
+        })
             
         </script>
     </body>
