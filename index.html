@@ -1,226 +1,83 @@
 <!DOCTYPE html>
-<html class="no-js" lang="">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <meta name="Counting the Customers" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        
-        <title>RFP</title>
-        
-        <!-- Place favicon.ico in the root directory -->
-        <link rel="apple-touch-icon" href="icon.png">
-        
-        <style>
-        
-        /* Set width on the form input elements since they're 100% wide by default */
-input,
-select,
-textarea {
-    max-width: 50px;
-}
-        
-        </style>
-        
-    </head>
-    
-    <body ng-app="RFPApp" ng-controller="SlotController">
-        
-<nav class="navbar navbar-default navbar-static-top" role="navigation">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span> 
-      </button>
-      <a class="navbar-brand" href="#"></a>
-    </div>
-    <div class="collapse navbar-collapse" id="myNavbar">
-      
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="#" data-toggle="collapse" data-target="#setTotals"><span class="glyphicon glyphicon-user" ></span> Set Totals</a></li>
-      </ul>
-    </div>
-  </div>
-</nav>
+<html ng-app="app">
+<head>
+    <title>Firebase AngularJS Demo</title>
+<!-- AngularJS -->
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+<!-- Firebase -->
+	<script src="https://cdn.firebase.com/js/client/2.2.4/firebase.js"></script>
+<!-- AngularFire -->
+	<script src="https://cdn.firebase.com/libs/angularfire/1.1.2/angularfire.min.js"></script>
+<!-- Angular app -->
+	<script>
+		var app = angular.module("app", ["firebase"]);
+		app.controller("RootCtrl", function($scope, $firebaseArray) {
+			// Variables for example
+			$scope.newRFP = {}
+            $scope.newTotal = {}
+			$scope.lockName = false;
+			// Set database path references for RFPs
+			var ref = new Firebase("https://rfpcounter.firebaseio.com/RFPs");
+			// Bind (three-way)
+			$scope.rfps = $firebaseArray(ref);
+			
+            // Set database path references for Totals
+            var ref1 = new Firebase("https://rfpcounter.firebaseio.com/Totals");
+            // Bind (three-way)
+			$scope.totals = $firebaseArray(ref1);
+			
+			// Add new chat message
+			$scope.send = function(){
 
-        
-        <div class="container-fluid">
+				// Add it to firebase db (and let the magic happen)
+				$scope.rfps.$add( $scope.newRFP );
+                $scope.totals.$add( $scope.newTotal );
+				//Reset msg
+				$scope.newRFP.tenTillEleven = '';
+                $scope.newRFP.elevenTillTwelve = '';
+				//Lock name for this session
+				$scope.lockName = true;
+			}
             
-             <!-- Collapsable Div -->            
-            <div id="setTotals" class="collapse container-fluid">
+            /*
+            var updateRef = new Firebase('https://rfpcounter.firebaseio.com/Totals/10-11');
+            updateRef.update({
+            value: 1
+            });
+           */ 
+            
+            // Update Function
+            var updateRef = new Firebase('https://rfpcounter.firebaseio.com/Totals/10-11');
+            
+            $scope.update = function(){
                 
-                <div class="row text-right" style="background-color: aquamarine">
-                    <div class="col-sm-1">
-                        <label>10 - 11:</label>
-                        INPUT1 : <input ng-model="Total_10till11" type="number" id="input1" step="1">
-                    </div>
-                    <div class="col-sm-1">
-                        <label>11 - 12:</label><input ng-model="Total_11till12" type="number" step="1">
-                    </div>
-                    <div class="col-sm-1">
-                        <label>12 - 1:</label><input ng-model="Total_12till1" type="number" step="1">
-                    </div>
-                    <div class="col-sm-1">
-                        <label>1 - 2:</label><input ng-model="Total_1till2" type="number" step="1">
-                    </div>
-                    <div class="col-sm-1">
-                        <label>2 - 3:</label><input ng-model="Total_2till3" type="number" step="1">
-                    </div>
-                    <div class="col-sm-1">
-                        <label>3 - 4:</label><input ng-model="Total_3till4" type="number" step="1">
-                    </div>
-                    <div class="col-sm-1">
-                        <label>4 - 5:</label><input ng-model="Total_4till5" type="number" step="1">
-                    </div>
-                    <div class="col-sm-1">
-                        <label>5 - 6:</label><input ng-model="Total_5till6" type="number" step="1">
-                    </div>
-                    <div class="col-sm-1">
-                        <label>6 - 7:</label><input ng-model="Total_6till7" type="number" step="1">
-                    </div>
-                    <div class="col-sm-1">
-                        <label>7 - 8:</label><input ng-model="Total_7till8" type="number" step="1">
-                    </div>
-                    <div class="col-sm-1">
-                        <br>
-                    </div>
-                    <div class="col-sm-1">
-                        <label>Next Day:</label><input ng-model="Total_Nxd" type="number" step="1">
-                    </div>     
-                </div>
+            updateRef.update({
+            value: $scope.newTotal.total
+            });
                 
-                <div class="row text-center">
-                <div class="col-sm-12">
-                    <button ng-click= "writeUserData()" type="button" id="setTotal" class="btn btn-info">
-                        <span class="glyphicon glyphicon-signal"></span>
-                        Set Totals
-                    </button>
-                </div>
-                </div>
-                
-            </div>
-            
-            
-            <!-- RFP columns -->
-            <div class="row text-center" style="background-color: cadetblue; height: 100%;">
-               
-                <div class="col-sm-1">
-                </div>
-                <div class="col-sm-1">
-                    <h2>{{RFP_10till11}} / <small>{{Total_10till11}}</small></h2>
-                    <button ng-click= "decreaseRFP(1)" type="button" class="btn btn-danger">
-                    <span class="glyphicon glyphicon"></span>Delete
-                    </button>
-                </div>
-                <div class="col-sm-1">
-                    <h2>{{RFP_11till12}} / <small>{{Total_11till12}}</small></h2>
-                    <button ng-click= "decreaseRFP(2)" type="button" class="btn btn-danger">
-                    <span class="glyphicon glyphicon"></span>Delete
-                    </button>
-                </div>
-                <div class="col-sm-1">
-                    <h2>{{RFP_12till1}} / <small>{{Total_12till1}}</small></h2>
-                    <button ng-click= "decreaseRFP(3)" type="button" class="btn btn-danger">
-                    <span class="glyphicon glyphicon"></span>Delete
-                    </button>
-                </div>
-                <div class="col-sm-1">
-                    <h2>{{RFP_1till2}} / <small>{{Total_1till2}}</small></h2>
-                    <button ng-click= "decreaseRFP(4)" type="button" class="btn btn-danger">
-                    <span class="glyphicon glyphicon"></span>Delete
-                    </button>
-                </div>
-                <div class="col-sm-1">
-                    <h2>{{RFP_2till3}} / <small>{{Total_2till3}}</small></h2>
-                    <button ng-click= "decreaseRFP(5)" type="button" class="btn btn-danger">
-                    <span class="glyphicon glyphicon"></span>Delete
-                    </button>
-                </div>
-                <div class="col-sm-1">
-                    <h2>{{RFP_3till4}} / <small>{{Total_3till4}}</small></h2>
-                    <button ng-click= "decreaseRFP(6)" type="button" class="btn btn-danger">
-                    <span class="glyphicon glyphicon"></span>Delete
-                    </button>
-                </div>
-                <div class="col-sm-1">
-                    <h2>{{RFP_4till5}} / <small>{{Total_4till5}}</small></h2>
-                    <button ng-click= "decreaseRFP(7)" type="button" class="btn btn-danger">
-                    <span class="glyphicon glyphicon"></span>Delete
-                    </button>
-                </div>
-                <div class="col-sm-1">
-                    <h2>{{RFP_5till6}} / <small>{{Total_5till6}}</small></h2>
-                    <button ng-click= "decreaseRFP(8)" type="button" class="btn btn-danger">
-                    <span class="glyphicon glyphicon"></span>Delete
-                    </button>
-                </div>
-                <div class="col-sm-1">
-                    <h2>{{RFP_6till7}} / <small>{{Total_6till7}}</small></h2>
-                    <button ng-click= "decreaseRFP(9)" type="button" class="btn btn-danger">
-                    <span class="glyphicon glyphicon"></span>Delete
-                    </button>
-                </div>
-                <div class="col-sm-1">
-                    <h2>{{RFP_7till8}} / <small>{{Total_7till8}}</small></h2>
-                    <button ng-click= "decreaseRFP(10)" type="button" class="btn btn-danger">
-                    <span class="glyphicon glyphicon"></span>Delete
-                    </button>
-                </div>
-                <div class="col-sm-1">
-                    <br>
-                </div>
-            
-            <div class="col-sm-12 text-center">
-                    <h1>{{RFP_Nxd}}</h1>
-                    <button ng-click= "decreaseRFP(NXD)" type="button" class="btn btn-danger">
-                    <span class="glyphicon glyphicon"></span>Delete
-                    </button>
-                </div>
-                
-            </div>
-            
-        </div>
-        
-        
-        
-        <script src="https://www.gstatic.com/firebasejs/4.6.0/firebase.js"></script>
-        <script>
-            
-        // Initialize Firebase
-        var config = {
-        apiKey: "AIzaSyDy6-cn7XXZtTFy32uDJ_4lGuG4J8i7tjM",
-        authDomain: "rfpcounter.firebaseapp.com",
-        databaseURL: "https://rfpcounter.firebaseio.com",
-        projectId: "rfpcounter",
-        storageBucket: "",
-        messagingSenderId: "515544270946"
-        };
-        firebase.initializeApp(config);
-            
-        var database = firebase.database();
-            
-        function writeUserData() {
-        firebase.database().ref('RFPs').set({
-         username: "Name"
-        });
-    }
-            
-        </script>
-        
-        <!-- Add Angular Library -->
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
-        <script src="app.js">
-        </script>
-        
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        
-        <!-- jQuery library -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
-        <!-- Latest compiled JavaScript -->
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    </body>
+            }
+		});
+	</script>
+</head>
+<body ng-controller="RootCtrl">
+	<div ng-repeat="chat in chats"><strong>{{chat.username}}</strong>({{chat.time | date: 'dd-MM-yyyy HH:mm:ss'}}): {{chat.msg}}</div>
+	<div>
+		<input ng-model="newRFP.username" placeholder="Your name" ng-disabled="lockName" />
+	</div>
+	<div>
+		<input ng-model="newRFP.tenTillEleven" placeholder="10" />
+        <input ng-model="newRFP.elevenTillTwelve" placeholder="12" />
+        <input ng-model="newTotal.total" placeholder="0" />
+		<button ng-disabled="!newRFP.tenTillEleven || !newRFP.tenTillEleven || !newTotal.total || !newRFP.username" ng-click="send()">Send</button>
+        <button ng-click="update()">Update</button>
+	</div>
     
+    <div ng-repeat="rfp in rfps">
+    
+        <h1>10-11: {{rfp.tenTillEleven}}</h1>
+        <br>
+        <h1>11-12: {{rfp.elevenTillTwelve}}</h1>
+    
+    </div>
+</body>
 </html>
