@@ -214,9 +214,9 @@ textarea {
             
         var database = firebase.database();
             
-        function writeUserData(RFP) {
-        firebase.database().ref('users/' + RFP).set({
-         username: "name"
+        function writeUserData() {
+        firebase.database().ref('RFPs/').set({
+         username: "Name"
         });
     }
             
