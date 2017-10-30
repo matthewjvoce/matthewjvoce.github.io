@@ -67,7 +67,7 @@ textarea {
                 <div class="row text-right" style="background-color: aquamarine">
                     <div class="col-sm-1">
                         <label>10 - 11:</label>
-                        INPUT1 : <input ng-model="Total_10till11" type="number" id="input1" step="1" ng-init="20">
+                        INPUT1 : <input ng-model="Total_10till11" type="number" id="input1" step="1">
                     </div>
                     <div class="col-sm-1">
                         <label>11 - 12:</label><input ng-model="Total_11till12" type="number" step="1">
@@ -216,7 +216,7 @@ textarea {
             
         $('#setTotal').click(function(){
             database.set({
-            INPUT1:$('input1').val()
+            input1:$('input1').val()
         }); 
         
         })
