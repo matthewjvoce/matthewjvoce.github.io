@@ -74,24 +74,25 @@
 	</script>
 </head>
 <body ng-controller="RootCtrl">
-	<div ng-repeat="chat in chats"><strong>{{chat.username}}</strong>({{chat.time | date: 'dd-MM-yyyy HH:mm:ss'}}): {{chat.msg}}</div>
+	
+<div class="jumbotron">
+	
 	<div>
-		<input ng-model="newRFP.username" placeholder="Your name" ng-disabled="lockName" />
-	</div>
-	<div>
-		<input ng-model="newRFP.tenTillEleven" placeholder="10" />
+	<input ng-model="newRFP.tenTillEleven" placeholder="10" />
         <input ng-model="newRFP.elevenTillTwelve" placeholder="12" />
         <input ng-model="newTotal.tenTillEleven" placeholder="0" />
 		<button ng-disabled="!newRFP.tenTillEleven || !newRFP.tenTillEleven || !newTotal.tenTillEleven || !newRFP.username" ng-click="send()">Send</button>
         <button ng-click="update()">Update</button>
 	</div>
     
-    <div ng-repeat="rfp in rfps">
-    
-        <h1>10-11: {{rfp.tenTillEleven}}</h1>
-        <br>
-        <h1>11-12: {{rfp.elevenTillTwelve}}</h1>
-    
-    </div>
+	<div ng-repeat="rfp in rfps">
+
+		<h1>10-11: {{rfp.tenTillEleven}}</h1>
+		<br>
+		<h1>11-12: {{rfp.elevenTillTwelve}}</h1>
+
+	</div>
+		
+</div>
 </body>
 </html>
