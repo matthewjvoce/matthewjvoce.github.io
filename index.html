@@ -31,7 +31,7 @@
             	$scope.newTotal = {}
 		$scope.lockName = false;
 		// Set database path references for RFPs
-			var refRfp = new Firebase("https://rfpcounter.firebaseio.com/RFPs");
+			var refRfp = new Firebase("https://rfpcounter.firebaseio.com/RFPs/");
 		// Bind (three-way)
 			$scope.rfps = $firebaseArray(refRfp);
 			
@@ -43,14 +43,14 @@
 		// Add new chat message
 		$scope.send = function(){
 
-				// Add it to firebase db (and let the magic happen)
-				$scope.rfps.$add( $scope.newRFP );
+		// Add it to firebase db (and let the magic happen)
+		$scope.rfps.$add( $scope.newRFP );
                 $scope.totals.$add( $scope.newTotal );
-				//Reset msg
-				$scope.newRFP.tenTillEleven = '';
+		//Reset msg
+		$scope.newRFP.tenTillEleven = '';
                 $scope.newRFP.elevenTillTwelve = '';
-				//Lock name for this session
-				$scope.lockName = true;
+		//Lock name for this session
+		$scope.lockName = true;
 			}
             
             /*
