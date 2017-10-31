@@ -79,6 +79,7 @@
 	</div>
 	
 	<div class="container text-center">
+		
   		<div class="row">
 			<div class="col-sm-4">
 				<input ng-model="newRFP.tenTillEleven" placeholder="10" />
@@ -90,24 +91,24 @@
 				<input ng-model="newTotal.tenTillEleven" placeholder="0" />
 			</div>
 		</div>
-	</div>
 		
-	<div class="row">
-		<div class="col-sm-12">
-			<button ng-disabled="!newRFP.tenTillEleven || !newRFP.tenTillEleven || !newTotal.tenTillEleven" ng-click="send()">Send</button>
-			<button ng-click="update()">Update</button>
+		<div class="row">
+			<div class="col-sm-12">
+				<button ng-disabled="!newRFP.tenTillEleven || !newRFP.tenTillEleven || !newTotal.tenTillEleven" ng-click="send()">Send</button>
+				<button ng-click="update()">Update</button>
+			</div>
 		</div>
-	</div>
 		
-	<div class="row" ng-repeat="rfp in rfps">
-		<div class="col-sm-12">
-			<h1>10-11: {{rfp.tenTillEleven}}</h1>
+		<div class="row" ng-repeat="rfp in rfps">
+			<div class="col-sm-12">
+				<h1>10-11: {{rfp.tenTillEleven}}</h1>
+			</div>
 		</div>
-	</div>
-	
-	<div class="row" ng-repeat="total in totals">
-		<div class="col-sm-12">
-			<h2>10-11 Total: {{total.value}}</h2>
+
+		<div class="row" ng-repeat="total in totals">
+			<div class="col-sm-12">
+				<h2>10-11 Total: {{total.value}}</h2>
+			</div>
 		</div>
 	</div>
 	
