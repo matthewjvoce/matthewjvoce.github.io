@@ -36,7 +36,7 @@
 			$scope.rfps = $firebaseArray(refRfp);
 			
             	// Set database path references for Totals
-            		var refTotal = new Firebase("https://rfpcounter.firebaseio.com/Totals");
+            		var refTotal = new Firebase("https://rfpcounter.firebaseio.com/Totals/");
             	// Bind (three-way)
 			$scope.totals = $firebaseArray(refTotal);
 			
@@ -61,7 +61,7 @@
            */ 
             
             // Update Function
-            var updateRef = new Firebase('https://rfpcounter.firebaseio.com/Totals/');
+            var updateRef = new Firebase('https://rfpcounter.firebaseio.com/Totals/tenTillEleven');
             
             $scope.update = function(){
                 
