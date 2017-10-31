@@ -44,10 +44,10 @@
 		$scope.send = function(){
 		// Add it to firebase db (and let the magic happen)
 		$scope.rfps.$add( $scope.newRFP );
-        $scope.totals.$add( $scope.newTotal );
+        	$scope.totals.$add( $scope.newTotal );
 		//Reset msg
 		$scope.newRFP.tenTillEleven = '';
-            $scope.newRFP.elevenTillTwelve = '';
+            	$scope.newRFP.elevenTillTwelve = '';
 		//Lock name for this session
 		$scope.lockName = true;
 			}
@@ -101,6 +101,12 @@
 	<div class="row" ng-repeat="rfp in rfps">
 		<div class="col-sm-12">
 			<h1>10-11: {{rfp.tenTillEleven}}</h1>
+		</div>
+	</div>
+	
+	<div class="row" ng-repeat="total in totals">
+		<div class="col-sm-12">
+			<h2>10-11 Total: {{total.value}}</h2>
 		</div>
 	</div>
 	
