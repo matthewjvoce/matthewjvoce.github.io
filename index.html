@@ -31,14 +31,14 @@
             	$scope.newTotal = {}
 		$scope.lockName = false;
 		// Set database path references for RFPs
-			var RFPS = new Firebase("https://rfpcounter.firebaseio.com/RFPs");
+			var refRfp = new Firebase("https://rfpcounter.firebaseio.com/RFPs");
 		// Bind (three-way)
-			$scope.rfps = $firebaseArray(RFPS);
+			$scope.rfps = $firebaseArray(refRfp);
 			
             	// Set database path references for Totals
-            		var TOTALS = new Firebase("https://rfpcounter.firebaseio.com/Totals");
+            		var refTotal = new Firebase("https://rfpcounter.firebaseio.com/Totals");
             	// Bind (three-way)
-			$scope.totals = $firebaseArray(TOTALS);
+			$scope.totals = $firebaseArray(refTotal);
 			
 		// Add new chat message
 		$scope.send = function(){
@@ -81,8 +81,8 @@
 	<div>
 		<input ng-model="newRFP.tenTillEleven" placeholder="10" />
         <input ng-model="newRFP.elevenTillTwelve" placeholder="12" />
-        <input ng-model="newTotal.total" placeholder="0" />
-		<button ng-disabled="!newRFP.tenTillEleven || !newRFP.tenTillEleven || !newTotal.total || !newRFP.username" ng-click="send()">Send</button>
+        <input ng-model="newTotal.tenTillEleven" placeholder="0" />
+		<button ng-disabled="!newRFP.tenTillEleven || !newRFP.tenTillEleven || !newTotal.tenTillEleven || !newRFP.username" ng-click="send()">Send</button>
         <button ng-click="update()">Update</button>
 	</div>
     
