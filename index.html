@@ -31,14 +31,14 @@
             	$scope.newTotal = {}
 		$scope.lockName = false;
 		// Set database path references for RFPs
-			var ref = new Firebase("https://rfpcounter.firebaseio.com/RFPs");
+			var RFPS = new Firebase("https://rfpcounter.firebaseio.com/RFPs");
 		// Bind (three-way)
-			$scope.rfps = $firebaseArray(ref);
+			$scope.rfps = $firebaseArray(RFPS);
 			
             	// Set database path references for Totals
-            		var ref1 = new Firebase("https://rfpcounter.firebaseio.com/Totals");
+            		var TOTALS = new Firebase("https://rfpcounter.firebaseio.com/Totals");
             	// Bind (three-way)
-			$scope.totals = $firebaseArray(ref1);
+			$scope.totals = $firebaseArray(TOTALS);
 			
 		// Add new chat message
 		$scope.send = function(){
