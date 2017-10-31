@@ -42,13 +42,12 @@
 			
 		// Add new chat message
 		$scope.send = function(){
-
 		// Add it to firebase db (and let the magic happen)
 		$scope.rfps.$add( $scope.newRFP );
-                $scope.totals.$add( $scope.newTotal );
+        $scope.totals.$add( $scope.newTotal );
 		//Reset msg
 		$scope.newRFP.tenTillEleven = '';
-                $scope.newRFP.elevenTillTwelve = '';
+            $scope.newRFP.elevenTillTwelve = '';
 		//Lock name for this session
 		$scope.lockName = true;
 			}
@@ -83,15 +82,13 @@
 	<input ng-model="newRFP.tenTillEleven" placeholder="10" />
         <input ng-model="newRFP.elevenTillTwelve" placeholder="12" />
         <input ng-model="newTotal.tenTillEleven" placeholder="0" />
-		<button ng-disabled="!newRFP.tenTillEleven || !newRFP.tenTillEleven || !newTotal.tenTillEleven || !newRFP.username" ng-click="send()">Send</button>
+		<button ng-disabled="!newRFP.tenTillEleven || !newRFP.tenTillEleven || !newTotal.tenTillEleven" ng-click="send()">Send</button>
         <button ng-click="update()">Update</button>
 	</div>
     
 	<div ng-repeat="rfp in rfps">
 
 		<h1>10-11: {{rfp.tenTillEleven}}</h1>
-		<br>
-		<h1>11-12: {{rfp.elevenTillTwelve}}</h1>
 
 	</div>
 		
