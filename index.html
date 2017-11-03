@@ -23,14 +23,14 @@
 	
 <!-- Angular app -->
 	<script>
-	var app = angular.module("app", ["firebase"]);
-	app.controller("RootCtrl", function($scope, $firebaseArray) {
+		var app = angular.module("app", ["firebase"]);
+		app.controller("RootCtrl", function($scope, $firebaseArray) {
             
         // Database URL
         var dbURL = "https://rfpcounter.firebaseio.com/"
         // Set database path references for RFPs
         var refRfp = new Firebase(dbURL + 'RFPs/');
-	// Bind (three-way)
+		// Bind (three-way)
         $scope.rfps = $firebaseArray(refRfp);
 			
         // Set database path references for Totals
@@ -38,36 +38,25 @@
         // Bind (three-way)
         $scope.totals = $firebaseArray(refTotal);
 		
-	// Variables
-	$scope.newRFP = {}
+		// Variables
+		$scope.newRFP = {}
         $scope.newTotal = {}
-	$scope.lockName = false;
+		$scope.lockName = false;
         
             
             // Update Function
             const totalsPath = new Firebase(dbURL + 'Totals/Array/');
-		
+            
             $scope.updateAllTotals = function(){
-            
-		// Set Total
-		totalsPath.update({
-		tenTillEleven: $scope.newTotal.tenTillEleven;
-		});
-		//matchTotalAndRfp();
+                
+            totalsPath.update({
+                tenTillEleven: $scope.newTotal.tenTillEleven
+            });
+                
             }
-	    
-	   /*
-	    const rfpsPath = new Firebase(dbURL + 'RFPs/Array/');
-	    function matchTotalAndRfp(){
-	    
-		// Set RFP to Total Value
-		rfpsPath.update({
-		tenTillEleven: $scope.newTotal.tenTillEleven;
-		});
-	    }
-           */
             
-            // Decrease Number 
+            
+            // Dcrease Number 
             var decreaseRfp = new Firebase(dbURL + 'RFPs/Array/');
             var rfpData = $firebaseArray(new Firebase(dbURL + 'RFPs/Array/'));
             var myNum = {}
@@ -106,7 +95,6 @@
             angular.element(document).ready(function () {
             
             $scope.hgt = 100;
-
             });
             
         
@@ -161,7 +149,7 @@
 </nav>
 	
 	<div class="jumbotron text-center">
-		<h1>Hi Matt!</h1>
+		<h1>Hi Matt!!</h1>
 	</div>
 	
 	<div class="container text-center">
