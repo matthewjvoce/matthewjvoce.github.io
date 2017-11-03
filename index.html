@@ -25,96 +25,190 @@
 	<script>
 		var app = angular.module("app", ["firebase"]);
 		app.controller("RootCtrl", function($scope, $firebaseArray) {
-		
-		// Variables for example
-		$scope.newRFP = {}
-            	$scope.newTotal = {}
-		$scope.lockName = false;
-		// Set database path references for RFPs
-			var refRfp = new Firebase("https://rfpcounter.firebaseio.com/RFPs/");
-		// Bind (three-way)
-			$scope.rfps = $firebaseArray(refRfp);
-			
-            	// Set database path references for Totals
-            		var refTotal = new Firebase("https://rfpcounter.firebaseio.com/Totals/");
-            	// Bind (three-way)
-			$scope.totals = $firebaseArray(refTotal);
-			
-		// Add new chat message
-		$scope.send = function(){
-		// Add it to firebase db (and let the magic happen)
-		$scope.rfps.$add( $scope.newRFP );
-        	$scope.totals.$add( $scope.newTotal );
-		//Reset msg
-		$scope.newRFP.tenTillEleven = '';
-            	$scope.newRFP.elevenTillTwelve = '';
-		//Lock name for this session
-		$scope.lockName = true;
-			}
             
-            /*
-            var updateRef = new Firebase('https://rfpcounter.firebaseio.com/Totals/10-11');
-            updateRef.update({
-            value: 1
-            });
-           */ 
+        // Database URL
+        var dbURL = "https://rfpcounter.firebaseio.com/"
+        // Set database path references for RFPs
+        var refRfp = new Firebase(dbURL + 'RFPs/');
+		// Bind (three-way)
+        $scope.rfps = $firebaseArray(refRfp);
+			
+        // Set database path references for Totals
+        var refTotal = new Firebase(dbURL + 'Totals/');
+        // Bind (three-way)
+        $scope.totals = $firebaseArray(refTotal);
+		
+		// Variables
+		$scope.newRFP = {}
+        $scope.newTotal = {}
+		$scope.lockName = false;
+        
             
             // Update Function
-            var updateRef = new Firebase('https://rfpcounter.firebaseio.com/Totals/tenTillEleven');
+            const totalsPath = new Firebase(dbURL + 'Totals/Array/');
             
-            $scope.update = function(){
+            $scope.updateAllTotals = function(){
                 
-            updateRef.update({
-            value: $scope.newTotal.tenTillEleven
+            totalsPath.update({
+                tenTillEleven: $scope.newTotal.tenTillEleven
             });
                 
             }
-		});
+            
+            
+            // Dcrease Number 
+            var decreaseRfp = new Firebase(dbURL + 'RFPs/Array/');
+            var rfpData = $firebaseArray(new Firebase(dbURL + 'RFPs/Array/'));
+            var myNum = {}
+            $scope.decreaseTotal = function(num){
+                
+                $scope.decreaseRfp = rfpData;
+                
+                if (num == 10-11){
+                    var tenTillElevenRec = rfpData.$getRecord("tenTillEleven");
+                    var tenTillElevenNum = tenTillElevenRec.$value
+                    if (tenTillElevenNum > 0) {
+                        decreaseRfp.update({
+                        tenTillEleven: tenTillElevenNum - 1
+                        });
+                        DemoCtrl(tenTillElevenNum);
+                    }
+                }
+                if (num == 2){
+                    var elevenTillTwelveNum = tenTillElevenRec.$value
+                    if (elevenTillTwelveNum > 0) {
+                        decreaseRfp.update({
+                        tenTillEleven: elevenTillTwelveNum - 1
+                        });
+                    }
+                }
+            }
+         
+            
+            
+            function DemoCtrl(num) {
+              // you can change this as you like. its just for demo purposes.
+              $scope.hgt = num;
+            }
+            
+            // Load Bars on page load
+            angular.element(document).ready(function () {
+            
+            $scope.hgt = 100;
+
+            });
+            
+        
+            
+            
+    });
 	</script>
+    
+    <!-- Additional JavaScript -->
+    <script>
+        document.getElementById("myNavbar")
+        .addEventListener("keyup", function(event) {
+        event.preventDefault();
+        if (event.keyCode === 13) {
+        document.getElementById("#Set").click();
+        }
+        
+            
+    });
+    </script>
+    
+    <style>
+        .smallText {
+            font-size: 14px;
+        }
+        
+        input[type="text"] {
+    box-sizing: border-box;
+}
+    
+    </style>
 </head>
 <body ng-controller="RootCtrl">
+
+<!-- Navbar -->
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span> 
+      </button>
+      <a class="navbar-brand" href="#"></a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#" id="Set" button data-toggle="collapse" data-target="#demo, #demo1"><span class="glyphicon glyphicon-user"></span></button> Set Totals</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
 	
 	<div class="jumbotron text-center">
 		<h1>Hi Matt!</h1>
 	</div>
 	
 	<div class="container text-center">
+        
+        <div id="demo" class="collapse">
+<h1>Set Totals</h1>
+<p>Click button to set totals</p>
+<button ng-disabled="!newTotal.tenTillEleven" ng-click="updateAllTotals()" class="btn btn-primary btn-sm">Set</button>            
+</div>
 		
-  		<div class="row">
-			<div class="col-sm-4">
-				<input ng-model="newRFP.tenTillEleven" placeholder="10" />
+  		<div class="row" ng-repeat="rfp in rfps">
+			<div class="col-xs-3" ng-repeat="total in totals">
+				<h5>10am - 11am</h5>
+                <h2>{{rfp.tenTillEleven}} / <span class="smallText">{{total.tenTillEleven}}</span></h2>
+                <button ng-click="decreaseTotal(10-11)" type="button" class="btn btn-primary btn-sm">Use</button>
+                
+                <div id="demo1" class="collapse">
+                    <h5>Total</h5><input ng-model="newTotal.tenTillEleven" class="form-control input-sm" placeholder="Total"/>
+                </div>
 			</div>
-			<div class="col-sm-4">
-				<input ng-model="newRFP.elevenTillTwelve" placeholder="12" />
+            <div class="col-xs-3">
+				<h5>11am - 12pm</h5>
+                <h2>{{rfp.elevenTillTwelve}}</h2>
+                <button ng-click="decreaseTotal(11-12)" type="button" class="btn btn-primary btn-sm">Use</button>
 			</div>
-			<div class="col-sm-4">
-				<input ng-model="newTotal.tenTillEleven" placeholder="0" />
+            <div class="col-xs-3">
+				<h5>12pm - 1pm</h5>
+                <h2>{{rfp.twelveTillOne}}</h2>
+                <button ng-click="decreaseTotal(12-1)" type="button" class="btn btn-primary btn-sm">Use</button>
+			</div>
+            <div class="col-xs-3">
+				<h5>1pm - 2pm</h5>    
+                <h2>{{rfp.OneTillTwo}}</h2>
+                <button ng-click="decreaseTotal(1-2)" type="button" class="btn btn-primary btn-sm">Use</button>
 			</div>
 		</div>
-		
-		<br>
-		<br>
-		
+        
 		<div class="row">
 			<div class="col-sm-4"></div>
 			<div class="col-sm-4">
-				<button ng-disabled="!newRFP.tenTillEleven || !newRFP.tenTillEleven || !newTotal.tenTillEleven" ng-click="send()">Send</button>
+				<button ng-disabled="!newRFP.tenTillEleven" ng-click="updateRFP()">Set</button>
 				<button ng-click="update()">Update</button>
 			</div>
 			<div class="col-sm-4"></div>
 		</div>
 		
 		<div class="row" ng-repeat="rfp in rfps">
-			<div class="col-sm-12">
-				<h1>10-11: {{rfp.tenTillEleven}}</h1>
+			<div class="col-sm-12" ng-repeat="total in totals">
+				<h1>{{rfp.tenTillEleven}} / {{total.tenTillEleven}}</h1>
 			</div>
 		</div>
-
-		<div class="row" ng-repeat="total in totals">
-			<div class="col-sm-12">
-				<h2>10-11 Total: {{total.value}}</h2>
-			</div>
-		</div>
+        
+        <div style="background-color: lightblue; height: {{ hgt }}px">
+            
+        </div>
+        
+		
+    <!-- Last Div -->
 	</div>
 	
 </body>
