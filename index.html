@@ -46,17 +46,18 @@
             
             // Update Function
             const totalsPath = new Firebase(dbURL + 'Totals/Array/');
-            const rfpsPath = new Firebase(dbURL + 'RFPs/Array/')
+            const rfpsPath = new Firebase(dbURL + 'RFPs/Array/');
+		
             $scope.updateAllTotals = function(){
             
-	// Set Total
-            totalsPath.update({
-                tenTillEleven: $scope.newTotal.tenTillEleven;  	
-            });
-	// Set RFP to Total Value
+		// Set Total
+		totalsPath.update({
+		tenTillEleven: $scope.newTotal.tenTillEleven;
+		});
+		// Set RFP to Total Value
 		rfpsPath.update({
-                tenTillEleven: $scope.newTotal.tenTillEleven;  	
-            });
+		tenTillEleven: $scope.newTotal.tenTillEleven;
+		});
                 
             }
             
