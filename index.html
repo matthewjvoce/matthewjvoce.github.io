@@ -201,21 +201,11 @@ tenTillEleven: $scope.newTotal.elevenTillTwelve
 		</div>
 	</div>
         
-	<div class="row">
-		<div class="col-sm-4"></div>
-		<div class="col-sm-4">
-			<button ng-disabled="!newRFP.tenTillEleven" ng-click="updateRFP()">Set</button>
-			<button ng-click="update()">Update</button>
+	<div class="row" ng-repeat="rfp in rfps">
+		<div class="col-sm-12" ng-repeat="total in totals">
+			<h1>{{rfp.tenTillEleven}} / {{total.tenTillEleven}}</h1>
 		</div>
-		
-		<div class="col-sm-4"></div>
 	</div>
-		
-		<div class="row" ng-repeat="rfp in rfps">
-			<div class="col-sm-12" ng-repeat="total in totals">
-				<h1>{{rfp.tenTillEleven}} / {{total.tenTillEleven}}</h1>
-			</div>
-		</div>
         
         <div style="background-color: lightblue; height: {{ hgt }}px">
             
