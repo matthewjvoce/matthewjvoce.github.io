@@ -54,12 +54,16 @@
 		totalsPath.update({
 		tenTillEleven: $scope.newTotal.tenTillEleven;
 		});
+		matchTotalAndRfp();
+            }
+	    
+	    $scope.matchTotalAndRfp = function(){
+	    
 		// Set RFP to Total Value
 		rfpsPath.update({
 		tenTillEleven: $scope.newTotal.tenTillEleven;
 		});
-                
-            }
+	    }
             
             
             // Dcrease Number 
