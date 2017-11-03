@@ -157,7 +157,7 @@
 	
 	<div class="container text-center">
         
-        <div id="demo" class="collapse">
+<div id="demo" class="collapse">
 <h1>Set Totals</h1>
 <p>Click button to set totals</p>
 <button ng-disabled="!newTotal.tenTillEleven" ng-click="updateAllTotals()" data-toggle="collapse" data-target="#demo, #demo1, #demo2" class="btn btn-primary btn-sm">Set</button>            
@@ -175,7 +175,7 @@
 			</div>
 	<div class="col-xs-3">
 		<h5>11am - 12pm</h5>
-                <h2>{{rfp.elevenTillTwelve}}</h2>
+                <h2>{{rfp.elevenTillTwelve}} / <span class="smallText">{{total.elevenTillTwelve}}</span></h2>
                 <button ng-click="decreaseTotal(11-12)" type="button" class="btn btn-primary btn-sm">Use</button>
 		
 		<div id="demo2" class="collapse">
