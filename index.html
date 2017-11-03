@@ -163,24 +163,25 @@
 <button ng-disabled="!newTotal.tenTillEleven" ng-click="updateAllTotals()" data-toggle="collapse" data-target="#demo, #demo1, #demo2" class="btn btn-primary btn-sm">Set</button>            
 </div>
 		
-  		<div class="row" ng-repeat="rfp in rfps">
-			<div class="col-xs-3" ng-repeat="total in totals">
-				<h5>10am - 11am</h5>
-                <h2>{{rfp.tenTillEleven}} / <span class="smallText">{{total.tenTillEleven}}</span></h2>
-                <button ng-click="decreaseTotal(10-11)" type="button" class="btn btn-primary btn-sm">Use</button>
-                
-                <div id="demo1" class="collapse">
-                    <h5>Total</h5><input ng-model="newTotal.tenTillEleven" class="form-control input-sm" placeholder="Total"/>
-                </div>
-			</div>
-	<div class="col-xs-3">
-		<h5>11am - 12pm</h5>
-                <h2>{{rfp.elevenTillTwelve}} / <span class="smallText">{{total.elevenTillTwelve}}</span></h2>
-                <button ng-click="decreaseTotal(11-12)" type="button" class="btn btn-primary btn-sm">Use</button>
+	<div class="row" ng-repeat="rfp in rfps">
+		<div class="col-xs-3" ng-repeat="total in totals">
+		<h5>10am - 11am</h5>
+		<h2>{{rfp.tenTillEleven}} / <span class="smallText">{{total.tenTillEleven}}</span></h2>
+		<button ng-click="decreaseTotal(10-11)" type="button" class="btn btn-primary btn-sm">Use</button>
+
+		<div id="demo1" class="collapse">
+			<h5>Total</h5><input ng-model="newTotal.tenTillEleven" class="form-control input-sm" placeholder="Total"/>
+		</div>
+	</div>
 		
+	<div class="col-xs-3" ng-repeat="total in totals>
+		<h5>11am - 12pm</h5>
+		<h2>{{rfp.elevenTillTwelve}} / <span class="smallText">{{total.elevenTillTwelve}}</span></h2>
+		<button ng-click="decreaseTotal(11-12)" type="button" class="btn btn-primary btn-sm">Use</button>
+
 		<div id="demo2" class="collapse">
-                    <h5>Total</h5><input ng-model="newTotal.elevenTillTwelve" class="form-control input-sm" placeholder="Total"/>
-                </div>
+			<h5>Total</h5><input ng-model="newTotal.elevenTillTwelve" class="form-control input-sm" placeholder="Total"/>
+		</div>
 	</div>
 			
             <div class="col-xs-3">
