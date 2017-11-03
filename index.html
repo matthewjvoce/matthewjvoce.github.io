@@ -164,46 +164,49 @@
 </div>
 		
 	<div class="row" ng-repeat="rfp in rfps">
+		
 		<div class="col-xs-3" ng-repeat="total in totals">
 		<h5>10am - 11am</h5>
 		<h2>{{rfp.tenTillEleven}} / <span class="smallText">{{total.tenTillEleven}}</span></h2>
 		<button ng-click="decreaseTotal(10-11)" type="button" class="btn btn-primary btn-sm">Use</button>
 
-		<div id="demo1" class="collapse">
-			<h5>Total</h5><input ng-model="newTotal.tenTillEleven" class="form-control input-sm" placeholder="Total"/>
+			<div id="demo1" class="collapse">
+				<h5>Total</h5><input ng-model="newTotal.tenTillEleven" class="form-control input-sm" placeholder="Total"/>
+			</div>
 		</div>
-	</div>
 		
-	<div class="col-xs-3" ng-repeat="total in totals>
-		<h5>11am - 12pm</h5>
-		<h2>{{rfp.elevenTillTwelve}} / <span class="smallText">{{total.elevenTillTwelve}}</span></h2>
-		<button ng-click="decreaseTotal(11-12)" type="button" class="btn btn-primary btn-sm">Use</button>
+		<div class="col-xs-3" ng-repeat="total in totals">
+			<h5>11am - 12pm</h5>
+			<h2>{{rfp.elevenTillTwelve}} / <span class="smallText">{{total.elevenTillTwelve}}</span></h2>
+			<button ng-click="decreaseTotal(11-12)" type="button" class="btn btn-primary btn-sm">Use</button>
 
-		<div id="demo2" class="collapse">
-			<h5>Total</h5><input ng-model="newTotal.elevenTillTwelve" class="form-control input-sm" placeholder="Total"/>
+			<div id="demo2" class="collapse">
+				<h5>Total</h5><input ng-model="newTotal.elevenTillTwelve" class="form-control input-sm" placeholder="Total"/>
+			</div>
+		</div>
+			
+            	<div class="col-xs-3">
+			<h5>12pm - 1pm</h5>
+                	<h2>{{rfp.twelveTillOne}}</h2>
+                	<button ng-click="decreaseTotal(12-1)" type="button" class="btn btn-primary btn-sm">Use</button>
+		</div>
+													   
+		<div class="col-xs-3">
+			<h5>1pm - 2pm</h5>    
+               		<h2>{{rfp.OneTillTwo}}</h2>
+                	<button ng-click="decreaseTotal(1-2)" type="button" class="btn btn-primary btn-sm">Use</button>
 		</div>
 	</div>
-			
-            <div class="col-xs-3">
-				<h5>12pm - 1pm</h5>
-                <h2>{{rfp.twelveTillOne}}</h2>
-                <button ng-click="decreaseTotal(12-1)" type="button" class="btn btn-primary btn-sm">Use</button>
-			</div>
-            <div class="col-xs-3">
-				<h5>1pm - 2pm</h5>    
-                <h2>{{rfp.OneTillTwo}}</h2>
-                <button ng-click="decreaseTotal(1-2)" type="button" class="btn btn-primary btn-sm">Use</button>
-			</div>
-		</div>
         
-		<div class="row">
-			<div class="col-sm-4"></div>
-			<div class="col-sm-4">
-				<button ng-disabled="!newRFP.tenTillEleven" ng-click="updateRFP()">Set</button>
-				<button ng-click="update()">Update</button>
-			</div>
-			<div class="col-sm-4"></div>
+	<div class="row">
+		<div class="col-sm-4"></div>
+		<div class="col-sm-4">
+			<button ng-disabled="!newRFP.tenTillEleven" ng-click="updateRFP()">Set</button>
+			<button ng-click="update()">Update</button>
 		</div>
+		
+		<div class="col-sm-4"></div>
+	</div>
 		
 		<div class="row" ng-repeat="rfp in rfps">
 			<div class="col-sm-12" ng-repeat="total in totals">
