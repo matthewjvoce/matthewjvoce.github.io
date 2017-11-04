@@ -74,7 +74,7 @@
                 
                 $scope.decreaseRfp = rfpData;
                 
-                if (num == 10-11){
+                if (num == "10-11"){
                     var tenTillElevenRec = rfpData.$getRecord("tenTillEleven");
                     var tenTillElevenNum = tenTillElevenRec.$value
                     if (tenTillElevenNum > 0) {
@@ -84,7 +84,7 @@
                         DemoCtrl(tenTillElevenNum);
                     }
                 }
-                if (num == 11-12){
+                if (num == "11-12"){
                     var elevenTillTwelveRec = rfpData.$getRecord("elevenTillTwelve");
                     var elevenTillTwelveNum = elevenTillTwelveRec.$value
                     if (elevenTillTwelveNum > 0) {
@@ -93,7 +93,7 @@
                         });
                     }
                 }
-		if (num == 12-1){
+		if (num == "12-1"){
 		    var twelveTillOneRec = rfpData.$getRecord("twelveTillOne");
                     var twelveTillOneNum = twelveTillOneRec.$value
                     if (twelveTillOneNum > 0) {
@@ -102,7 +102,7 @@
                         });
                     }
 		}
-		if (num == 1-2){
+		if (num == "1-2"){
                     var oneTillTwoRec = rfpData.$getRecord("oneTillTwo");
                     var oneTillTwoNum = oneTillTwoRec.$value
                     if (oneTillTwoNum > 0) {
