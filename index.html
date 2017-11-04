@@ -44,21 +44,23 @@
 	$scope.lockName = false;
         
             
-            // Update Function
-            const totalsPath = new Firebase(dbURL + 'Totals/Array/');
-		const rfpsPath = new Firebase(dbURL + 'RFPs/Array/');
-            
-            $scope.updateAllTotals = function(){
-                
-            totalsPath.update({
-                tenTillEleven: $scope.newTotal.tenTillEleven,
-		elevenTillTwelve: $scope.newTotal.elevenTillTwelve
-            });
+	// Update Function
+	const totalsPath = new Firebase(dbURL + 'Totals/Array/');
+	const rfpsPath = new Firebase(dbURL + 'RFPs/Array/');
 
-rfpsPath.update({
-tenTillEleven: $scope.newTotal.elevenTillTwelve
-});
-            }
+	$scope.updateAllTotals = function(){
+
+	totalsPath.update({
+		tenTillEleven: $scope.newTotal.tenTillEleven,
+		elevenTillTwelve: $scope.newTotal.elevenTillTwelve,
+		twelveTillOne: $scope.newTotal.twelveTillOne,
+		oneTillTwo: $scope.newTotal.oneTillTwo
+	});
+
+	rfpsPath.update({
+		tenTillEleven: $scope.newTotal.elevenTillTwelve
+	});
+	}
             
             
             // Dcrease Number 
@@ -79,7 +81,7 @@ tenTillEleven: $scope.newTotal.elevenTillTwelve
                         DemoCtrl(tenTillElevenNum);
                     }
                 }
-                if (num == 2){
+                if (num == 11-12){
                     var elevenTillTwelveNum = elevenTillTwelveNum.$value
                     if (elevenTillTwelveNum > 0) {
                         decreaseRfp.update({
@@ -87,6 +89,22 @@ tenTillEleven: $scope.newTotal.elevenTillTwelve
                         });
                     }
                 }
+		if (num == 12-1){
+                    var dataNum = dataNum.$value
+                    if (dataNum > 0) {
+                        decreaseRfp.update({
+                        twelveTillOne: dataNum - 1
+                        });
+                    }
+		}
+		if (num == 1-2){
+                    var dataNum = dataNum.$value
+                    if (dataNum > 0) {
+                        decreaseRfp.update({
+                        oneTillTwo: dataNum - 1
+                        });
+                    }
+		}
             }
          
             
@@ -147,7 +165,7 @@ tenTillEleven: $scope.newTotal.elevenTillTwelve
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#" id="Set" button data-toggle="collapse" data-target="#demo, #demo1, #demo2"><span class="glyphicon glyphicon-user"></span></button> Set Totals</a></li>
+        <li><a href="#" id="Set" button data-toggle="collapse" data-target="#totals, #10-11, #11-12"><span class="glyphicon glyphicon-user"></span></button> Set Totals</a></li>
       </ul>
     </div>
   </div>
@@ -159,44 +177,48 @@ tenTillEleven: $scope.newTotal.elevenTillTwelve
 	
 	<div class="container text-center">
         
-<div id="demo" class="collapse">
+<div id="totals" class="collapse">
 <h1>Set Totals</h1>
 <p>Click button to set totals</p>
-<button ng-disabled="!newTotal.tenTillEleven" ng-click="updateAllTotals()" data-toggle="collapse" data-target="#demo, #demo1, #demo2" class="btn btn-primary btn-sm">Set</button>            
+<button ng-disabled="!newTotal.tenTillEleven" ng-click="updateAllTotals()" data-toggle="collapse" data-target="#totals, #10-11, #11-12" class="btn btn-primary btn-sm">Set</button>            
 </div>
 		
 	<div class="row" ng-repeat="rfp in rfps">
 		
 		<div class="col-xs-3" ng-repeat="total in totals">
-		<h5>10am - 11am</h5>
-		<h2>{{rfp.tenTillEleven}} / <span class="smallText">{{total.tenTillEleven}}</span></h2>
-		<button ng-click="decreaseTotal(10-11)" type="button" class="btn btn-primary btn-sm">Use</button>
-
-			<div id="demo1" class="collapse">
-				<h5>Total</h5><input ng-model="newTotal.tenTillEleven" class="form-control input-sm" placeholder="Total"/>
-			</div>
+			<h5>10am - 11am</h5>
+			<h2>{{rfp.tenTillEleven}} / <span class="smallText">{{total.tenTillEleven}}</span></h2>
+			<button ng-click="decreaseTotal(10-11)" type="button" class="btn btn-primary btn-sm">Use</button>
+				<div id="10-11" class="collapse">
+					<h5>Total</h5><input ng-model="newTotal.tenTillEleven" class="form-control input-sm" placeholder="Total"/>
+				</div>
 		</div>
 		
 		<div class="col-xs-3" ng-repeat="total in totals">
 			<h5>11am - 12pm</h5>
 			<h2>{{rfp.elevenTillTwelve}} / <span class="smallText">{{total.elevenTillTwelve}}</span></h2>
 			<button ng-click="decreaseTotal(11-12)" type="button" class="btn btn-primary btn-sm">Use</button>
-
-			<div id="demo2" class="collapse">
-				<h5>Total</h5><input ng-model="newTotal.elevenTillTwelve" class="form-control input-sm" placeholder="Total"/>
-			</div>
+				<div id="11-12" class="collapse">
+					<h5>Total</h5><input ng-model="newTotal.elevenTillTwelve" class="form-control input-sm" placeholder="Total"/>
+				</div>
 		</div>
 			
             	<div class="col-xs-3">
 			<h5>12pm - 1pm</h5>
-                	<h2>{{rfp.twelveTillOne}}</h2>
+                	<h2>{{rfp.twelveTillOne}} / <span class="smallText">{{total.twelveTillOne}}</span></h2>
                 	<button ng-click="decreaseTotal(12-1)" type="button" class="btn btn-primary btn-sm">Use</button>
+				<div id="12-1" class="collapse">
+					<h5>Total</h5><input ng-model="newTotal.twelveTillOne" class="form-control input-sm" placeholder="Total"/>
+				</div>
 		</div>
 													   
 		<div class="col-xs-3">
 			<h5>1pm - 2pm</h5>    
-               		<h2>{{rfp.OneTillTwo}}</h2>
+               		<h2>{{rfp.oneTillTwo}} / <span class="smallText">{{total.oneTillTwo}}</span></h2>
                 	<button ng-click="decreaseTotal(1-2)" type="button" class="btn btn-primary btn-sm">Use</button>
+				<div id="1-2" class="collapse">
+					<h5>Total</h5><input ng-model="newTotal.oneTillTwo" class="form-control input-sm" placeholder="Total"/>
+				</div>
 		</div>
 	</div>
         
