@@ -206,7 +206,7 @@
 				</div>
 		</div>
 			
-            	<div class="col-xs-3 ng-repeat="total in totals">
+            	<div class="col-xs-3" ng-repeat="total in totals">
 			<h5>12pm - 1pm</h5>
                 	<h2>{{rfp.twelveTillOne}} / <span class="smallText">{{total.twelveTillOne}}</span></h2>
                 	<button ng-click="decreaseTotal(12-1)" type="button" class="btn btn-primary btn-sm">Use</button>
@@ -215,7 +215,7 @@
 				</div>
 		</div>
 													   
-		<div class="col-xs-3 ng-repeat="total in totals">
+		<div class="col-xs-3" ng-repeat="total in totals">
 			<h5>1pm - 2pm</h5>    
                		<h2>{{rfp.oneTillTwo}} / <span class="smallText">{{total.oneTillTwo}}</span></h2>
                 	<button ng-click="decreaseTotal(1-2)" type="button" class="btn btn-primary btn-sm">Use</button>
