@@ -95,19 +95,19 @@
                 }
 		if (num == 12-1){
 		    var twelveTillOneRec = rfpData.$getRecord("twelveTillOne");
-                    var dataNum = twelveTillOneRec.$value
-                    if (dataNum > 0) {
+                    var twelveTillOneNum = twelveTillOneRec.$value
+                    if (twelveTillOneNum > 0) {
                         decreaseRfp.update({
-                        twelveTillOne: dataNum - 1
+                        twelveTillOne: twelveTillOneNum - 1
                         });
                     }
 		}
 		if (num == 1-2){
                     var oneTillTwoRec = rfpData.$getRecord("oneTillTwo");
-                    var dataNum = oneTillTwoRec.$value
-                    if (dataNum > 0) {
+                    var oneTillTwoNum = oneTillTwoRec.$value
+                    if (oneTillTwoNum > 0) {
                         decreaseRfp.update({
-                        oneTillTwo: dataNum - 1
+                        oneTillTwo: oneTillTwoNum - 1
                         });
                     }
 		}
