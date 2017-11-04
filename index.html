@@ -165,7 +165,7 @@
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#" id="Set" button data-toggle="collapse" data-target="#totals, #10-11, #11-12, #12-1, #1,2"><span class="glyphicon glyphicon-user"></span></button> Set Totals</a></li>
+        <li><a href="#" id="Set" button data-toggle="collapse" data-target="#totals, #10-11, #11-12, #12-1, #1-2"><span class="glyphicon glyphicon-user"></span></button> Set Totals</a></li>
       </ul>
     </div>
   </div>
@@ -180,7 +180,7 @@
 <div id="totals" class="collapse">
 <h1>Set Totals</h1>
 <p>Click button to set totals</p>
-<button ng-disabled="!newTotal.tenTillEleven" ng-click="updateAllTotals()" data-toggle="collapse" data-target="#totals, #10-11, #11-12, #12-1, #1,2" class="btn btn-primary btn-sm">Set</button>            
+<button ng-disabled="!newTotal.tenTillEleven" ng-click="updateAllTotals()" data-toggle="collapse" data-target="#totals, #10-11, #11-12, #12-1, #1-2" class="btn btn-primary btn-sm">Set</button>            
 </div>
 		
 	<div class="row" ng-repeat="rfp in rfps">
@@ -203,7 +203,7 @@
 				</div>
 		</div>
 			
-            	<div class="col-xs-3">
+            	<div class="col-xs-3 ng-repeat="total in totals">
 			<h5>12pm - 1pm</h5>
                 	<h2>{{rfp.twelveTillOne}} / <span class="smallText">{{total.twelveTillOne}}</span></h2>
                 	<button ng-click="decreaseTotal(12-1)" type="button" class="btn btn-primary btn-sm">Use</button>
@@ -212,7 +212,7 @@
 				</div>
 		</div>
 													   
-		<div class="col-xs-3">
+		<div class="col-xs-3 ng-repeat="total in totals">
 			<h5>1pm - 2pm</h5>    
                		<h2>{{rfp.oneTillTwo}} / <span class="smallText">{{total.oneTillTwo}}</span></h2>
                 	<button ng-click="decreaseTotal(1-2)" type="button" class="btn btn-primary btn-sm">Use</button>
