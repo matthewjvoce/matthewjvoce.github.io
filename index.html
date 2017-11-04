@@ -14,12 +14,12 @@
 <!-- AngularFire -->
 	<script src="https://cdn.firebase.com/libs/angularfire/1.1.2/angularfire.min.js"></script>
 <!-- BootStrap -->
-	<!-- Latest compiled and minified CSS -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	<!-- jQuery library -->
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<!-- Latest compiled JavaScript -->
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	
 <!-- Angular app -->
 	<script>
@@ -51,11 +51,10 @@
             $scope.updateAllTotals = function(){
                 
             totalsPath.update({
-                tenTillEleven: $scope.newTotal.tenTillEleven
+                tenTillEleven: $scope.newTotal.tenTillEleven,
+		elevenTillTwelve: $scope.newTotal.elevenTillTwelve
             });
-            totalsPath.update({
-                elevenTillTwelve: $scope.newTotal.elevenTillTwelve
-            });
+
 rfpsPath.update({
 tenTillEleven: $scope.newTotal.elevenTillTwelve
 });
