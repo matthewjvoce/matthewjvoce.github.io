@@ -42,93 +42,118 @@
                 $scope.newRFP = {}
                 $scope.newTotal = {}
                 $scope.lockName = false;
+                // Times 
+                $scope.tenTillEleven = "10am - 11am"
+                $scope.elevenTillTwelve = "11am - 12pm"
+                $scope.twelveTillOne = "12pm - 1pm"
+                $scope.oneTillTwo = "1pm - 2pm"
+                $scope.twoTillThree = "2pm - 3pm"
+                $scope.threeTillFour = "3pm - 4pm"
+                $scope.fourTillFive = "4pm - 5pm"
+                $scope.fiveTillSix = "5pm - 6pm"
+                $scope.sixTillSeven = "6pm - 7pm"
+                $scope.sevenTillEight = "7pm - 8pm"
+                $scope.nextDay = "Next Day"
 
+                
+                const totalsPath = new Firebase(dbURL + 'Totals/Array/');
+                var rfpsPath = new Firebase(dbURL + 'RFPs/Array/');
+                
+                const rfpsPathDb = $firebaseArray(new Firebase(dbURL + 'RFPs/Array/'));
 
                 // Update Function
-                const totalsPath = new Firebase(dbURL + 'Totals/Array/');
-                const rfpsPath = new Firebase(dbURL + 'RFPs/Array/');
-
                 $scope.updateAllTotals = function(){
 
                     totalsPath.update({
                         tenTillEleven: $scope.newTotal.tenTillEleven,
                         elevenTillTwelve: $scope.newTotal.elevenTillTwelve,
                         twelveTillOne: $scope.newTotal.twelveTillOne,
-                        oneTillTwo: $scope.newTotal.oneTillTwo
+                        oneTillTwo: $scope.newTotal.oneTillTwo,
+                        twoTillThree: $scope.newTotal.twoTillThree,
+                        threeTillFour: $scope.newTotal.threeTillFour,
+                        fourTillFive: $scope.newTotal.fourTillFive,
+                        fiveTillSix: $scope.newTotal.fiveTillSix,
+                        sixTillSeven: $scope.newTotal.sixTillSeven,
+                        sevenTillEight: $scope.newTotal.sevenTillEight,
+                        nextDay: $scope.newTotal.nextDay
                     });
 
                     rfpsPath.update({
-                        tenTillEleven: $scope.newTotal.elevenTillTwelve,
+                        tenTillEleven: $scope.newTotal.tenTillEleven,
                         elevenTillTwelve: $scope.newTotal.elevenTillTwelve,
                         twelveTillOne: $scope.newTotal.twelveTillOne,
-                        oneTillTwo: $scope.newTotal.oneTillTwo
+                        oneTillTwo: $scope.newTotal.oneTillTwo,
+                        twoTillThree: $scope.newTotal.twoTillThree,
+                        threeTillFour: $scope.newTotal.threeTillFour,
+                        fourTillFive: $scope.newTotal.fourTillFive,
+                        fiveTillSix: $scope.newTotal.fiveTillSix,
+                        sixTillSeven: $scope.newTotal.sixTillSeven,
+                        sevenTillEight: $scope.newTotal.sevenTillEight,
+                        nextDay: $scope.newTotal.nextDay
                     });
                 }
 
 
                 // Decrease Number 
-                var decreaseRfp = new Firebase(dbURL + 'RFPs/Array/');
-                var rfpData = $firebaseArray(new Firebase(dbURL + 'RFPs/Array/'));
-                var myNum = {}
-                $scope.decreaseTotal = function(num){
+                $scope.decreaseTotal1 = function(num){  
+                    
 
-                    $scope.decreaseRfp = rfpData;
-
-                    if (num == 10){
-                        var tenTillElevenRec = rfpData.$getRecord("tenTillEleven");
-                        var tenTillElevenNum = tenTillElevenRec.$value
+                    if ("tenTillEleven".equals(num)){
+                        var tenTillElevenNum = rfpsPathDb.$getRecord("tenTillEleven").$value
                         if (tenTillElevenNum > 0) {
-                            decreaseRfp.update({
+                            rfpsPath.update({
                                 tenTillEleven: tenTillElevenNum - 1
                             });
-                            DemoCtrl(tenTillElevenNum);
                         }
                     }
-                    if (num == 11){
-                        var elevenTillTwelveRec = rfpData.$getRecord("elevenTillTwelve");
-                        var elevenTillTwelveNum = elevenTillTwelveRec.$value
-                        if (elevenTillTwelveNum > 0) {
-                            decreaseRfp.update({
-                                elevenTillTwelve: elevenTillTwelveNum - 1
-                            });
-                        }
-                    }
-                    if (num == 12){
-                        var twelveTillOneRec = rfpData.$getRecord("twelveTillOne");
-                        var twelveTillOneNum = twelveTillOneRec.$value
-                        if (twelveTillOneNum > 0) {
-                            decreaseRfp.update({
-                                twelveTillOne: twelveTillOneNum - 1
-                            });
-                        }
-                    }
-                    if (num == 1){
-                        var oneTillTwoRec = rfpData.$getRecord("oneTillTwo");
-                        var oneTillTwoNum = oneTillTwoRec.$value
-                        if (oneTillTwoNum > 0) {
-                            decreaseRfp.update({
-                                oneTillTwo: oneTillTwoNum - 1
-                            });
-                        }
-                    }
+                    
                 }
-
-
-
-                function DemoCtrl(num) {
-                    // you can change this as you like. its just for demo purposes.
-                    $scope.hgt = num;
+                
+                $scope.decreaseTotal = function(num){ 
+                    
+                    var path = ""
+                    var pathNum = path + "Num"
+                
+                switch (num) {
+                        
+                    case 10: path = "tenTillEleven";break;
+                    case 11: path = "elevenTillTwelve";break;
+                    case 12: path = "twelveTillOne";break;
+                    case 1: path = "oneTillTwo";break;
+                    case 2: path = "twoTillThree";break;
+                    case 3: path = "threeTillFour";break;
+                    case 4: path = "fourTillFive";break;
+                    case 5: path = "fiveTillSix";break;
+                    case 6: path = "sixTillSeven";break;
+                    case 7: path = "sevenTillEight";break;
+                    case 99: path = "tenTillEleven";break;
+                    default: path = ""
                 }
+                
+                    
+                    var pathNum = rfpsPathDb.$getRecord(String(path)).$value
+                    if (pathNum > 0) {
+                    rfpsPath.update({
+                        [path]: parseInt(pathNum) - 1
 
-                // Load Bars on page load
-                angular.element(document).ready(function () {
+                    });
+                    }
+                
+    
+                }
+                
+                $scope.increaseTotal = function(){
+                    
+                    var path = "nextDay"
+                    var pathNum = path + "Num"
+                    
+                    var pathNum = rfpsPathDb.$getRecord(String(path)).$value
+                    rfpsPath.update({
+                        [path]: parseInt(pathNum) + 1
 
-                    $scope.hgt = 100;
-                });
-
-
-
-
+                    });
+                }
+            
             });
         </script>
 
@@ -181,7 +206,7 @@
                 </div>
                 <div class="collapse navbar-collapse" id="myNavbar">
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#" id="Set" button data-toggle="collapse" data-target="#totals, #10-11, #11-12, #12-1, #1-2"><span class="glyphicon glyphicon-user"></span></button> Set Totals</a></li>
+                        <li><a href="#" id="Set" button data-toggle="collapse" data-target="#totals, #10-11, #11-12, #12-1, #1-2, #2-3, #3-4, #4-5, #5-6, #6-7, #7-8, #nxd"><span class="glyphicon glyphicon-user"></span></button> Set Totals</a></li>
                 </ul>
             </div>
         </div>
@@ -196,12 +221,12 @@
     <div id="totals" class="collapse">
         <h1>Set Totals</h1>
         <p>Click button to set totals</p>
-        <button ng-disabled="!newTotal.tenTillEleven" ng-click="updateAllTotals()" data-toggle="collapse" data-target="#totals, #10-11, #11-12, #12-1, #1-2" class="btn btn-primary btn-sm">Set</button>            
+        <button ng-disabled="!newTotal.tenTillEleven" ng-click="updateAllTotals()" data-toggle="collapse" data-target="#totals, #10-11, #11-12, #12-1, #1-2, #2-3, #3-4, #4-5, #5-6, #6-7, #7-8, #nxd" class="btn btn-primary btn-sm">Set</button>            
     </div>
 
     <div class="row" ng-repeat="rfp in rfps">
         <div class="col-xs-3" ng-repeat="total in totals">
-            <h5>10am - 11am</h5>
+            <h5>{{tenTillEleven}}</h5>
             <h2>{{rfp.tenTillEleven}} / <span class="smallText">{{total.tenTillEleven}}</span></h2>
 
             <div ng-repeat="rfp in rfps">
@@ -219,7 +244,7 @@
         </div>
 
         <div class="col-xs-3" ng-repeat="total in totals">
-            <h5>11am - 12pm</h5>
+            <h5>{{ elevenTillTwelve }}</h5>
             <h2>{{rfp.elevenTillTwelve}} / <span class="smallText">{{total.elevenTillTwelve}}</span></h2>
 
             <div ng-repeat="rfp in rfps">
@@ -237,7 +262,7 @@
         </div>
 
         <div class="col-xs-3" ng-repeat="total in totals">
-            <h5>12pm - 1pm</h5>
+            <h5>{{ twelveTillOne }}</h5>
             <h2>{{rfp.twelveTillOne}} / <span class="smallText">{{total.twelveTillOne}}</span></h2>
 
             <div ng-repeat="rfp in rfps">
@@ -255,7 +280,7 @@
         </div>
 
         <div class="col-xs-3" ng-repeat="total in totals">
-            <h5>1pm - 2pm</h5>    
+            <h5>{{ oneTillTwo }}</h5>    
             <h2>{{rfp.oneTillTwo}} / <span class="smallText">{{total.oneTillTwo}}</span></h2>
 
             <div ng-repeat="rfp in rfps">
@@ -271,6 +296,146 @@
 
             <button ng-click="decreaseTotal(1)" type="button" class="btn btn-primary btn-sm">Use</button>
         </div>
+    </div>
+    
+    <!-- Second Row -->
+    
+    <div class="row" ng-repeat="rfp in rfps">
+        <div class="col-xs-3" ng-repeat="total in totals">
+            <h5>{{ twoTillThree }}</h5>
+            <h2>{{rfp.twoTillThree}} / <span class="smallText">{{total.twoTillThree}}</span></h2>
+
+            <div ng-repeat="rfp in rfps">
+                <div class="progress vertical" ng-repeat="total in totals">
+                    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width: {{ (rfp.twoTillThree / total.twoTillThree * 100) }}%;">
+                    </div>  
+                </div>
+            </div>
+            
+            <div id="2-3" class="collapse">
+                <h5>Total</h5><input ng-model="newTotal.twoTillThree" class="form-control input-sm" placeholder="Total"/>
+            </div>
+
+            <button ng-click="decreaseTotal(2)" type="button" class="btn btn-primary btn-sm">Use</button>
+        </div>
+
+        <div class="col-xs-3" ng-repeat="total in totals">
+            <h5>{{ threeTillFour }}</h5>
+            <h2>{{rfp.threeTillFour}} / <span class="smallText">{{total.threeTillFour}}</span></h2>
+
+            <div ng-repeat="rfp in rfps">
+                <div class="progress vertical" ng-repeat="total in totals">
+                    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width: {{ (rfp.threeTillFour / total.threeTillFour * 100) }}%;">
+                    </div>  
+                </div>
+            </div>
+            
+            <div id="3-4" class="collapse">
+                <h5>Total</h5><input ng-model="newTotal.threeTillFour" class="form-control input-sm" placeholder="Total"/>
+            </div>
+
+            <button ng-click="decreaseTotal(3)" type="button" class="btn btn-primary btn-sm">Use</button>
+        </div>
+
+        <div class="col-xs-3" ng-repeat="total in totals">
+            <h5>{{ fourTillFive }}</h5>
+            <h2>{{rfp.fourTillFive}} / <span class="smallText">{{total.fourTillFive}}</span></h2>
+
+            <div ng-repeat="rfp in rfps">
+                <div class="progress vertical" ng-repeat="total in totals">
+                    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width: {{ (rfp.fourTillFive / total.fourTillFive * 100) }}%;">
+                    </div>  
+                </div>
+            </div>
+            
+            <div id="4-5" class="collapse">
+                <h5>Total</h5><input ng-model="newTotal.fourTillFive" class="form-control input-sm" placeholder="Total"/>
+            </div>
+
+            <button ng-click="decreaseTotal(4)" type="button" class="btn btn-primary btn-sm">Use</button>
+        </div>
+        
+        <div class="col-xs-3" ng-repeat="total in totals">
+            <h5>{{ fiveTillSix }}</h5>
+            <h2>{{rfp.fiveTillSix}} / <span class="smallText">{{total.fiveTillSix}}</span></h2>
+
+            <div ng-repeat="rfp in rfps">
+                <div class="progress vertical" ng-repeat="total in totals">
+                    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width: {{ (rfp.fiveTillSix / total.fiveTillSix * 100) }}%;">
+                    </div>  
+                </div>
+            </div>
+            
+            <div id="5-6" class="collapse">
+                <h5>Total</h5><input ng-model="newTotal.fiveTillSix" class="form-control input-sm" placeholder="Total"/>
+            </div>
+
+            <button ng-click="decreaseTotal(5)" type="button" class="btn btn-primary btn-sm">Use</button>
+        </div>
+
+        
+    </div>
+    
+    <!-- Third Row -->
+    
+    <div class="row" ng-repeat="rfp in rfps">
+        <div class="col-xs-3" ng-repeat="total in totals">
+            <h5>{{ sixTillSeven }}</h5>
+            <h2>{{rfp.sixTillSeven}} / <span class="smallText">{{total.sixTillSeven}}</span></h2>
+
+            <div ng-repeat="rfp in rfps">
+                <div class="progress vertical" ng-repeat="total in totals">
+                    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width: {{ (rfp.sixTillSeven / total.sixTillSeven * 100) }}%;">
+                    </div>  
+                </div>
+            </div>
+            
+            <div id="6-7" class="collapse">
+                <h5>Total</h5><input ng-model="newTotal.sixTillSeven" class="form-control input-sm" placeholder="Total"/>
+            </div>
+
+            <button ng-click="decreaseTotal(6)" type="button" class="btn btn-primary btn-sm">Use</button>
+        </div>
+
+        <div class="col-xs-3" ng-repeat="total in totals">
+            <h5>{{ sevenTillEight }}</h5>
+            <h2>{{rfp.sevenTillEight}} / <span class="smallText">{{total.sevenTillEight}}</span></h2>
+
+            <div ng-repeat="rfp in rfps">
+                <div class="progress vertical" ng-repeat="total in totals">
+                    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width: {{ (rfp.sevenTillEight / total.sevenTillEight * 100) }}%;">
+                    </div>  
+                </div>
+            </div>
+            
+            <div id="7-8" class="collapse">
+                <h5>Total</h5><input ng-model="newTotal.sevenTillEight" class="form-control input-sm" placeholder="Total"/>
+            </div>
+
+            <button ng-click="decreaseTotal(7)" type="button" class="btn btn-primary btn-sm">Use</button>
+        </div>
+        
+        <div class="col-xs-3"></div>
+
+        <div class="col-xs-3" ng-repeat="total in totals">
+            <h5>{{ nextDay }}</h5>
+            <h2>{{rfp.nextDay}}</h2>
+
+            <div ng-repeat="rfp in rfps">
+                <div class="progress vertical" ng-repeat="total in totals">
+                    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width: {{ (rfp.nextDay / total.nextDay * 100) }}%;">
+                    </div>  
+                </div>
+            </div>
+            
+            <div id="nxd" class="collapse">
+                <h5>Total</h5><input ng-model="newTotal.nextDay" class="form-control input-sm" placeholder="Total"/>
+            </div>
+
+            <button ng-click="increaseTotal()" type="button" class="btn btn-primary btn-sm">Use</button>
+        </div>
+
+        
     </div>
 
     <!-- Last Div -->
