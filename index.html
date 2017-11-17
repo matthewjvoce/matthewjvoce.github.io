@@ -26,132 +26,133 @@
             var app = angular.module("app", ["firebase"]);
             app.controller("RootCtrl", function($scope, $firebaseArray) {
 
-                // Database URL
-                var dbURL = "https://rfpcounter.firebaseio.com/"
-                // Set database path references for RFPs
-                var refRfp = new Firebase(dbURL + 'RFPs/');
-                // Bind (three-way)
-                $scope.rfps = $firebaseArray(refRfp);
-
-                // Set database path references for Totals
-                var refTotal = new Firebase(dbURL + 'Totals/');
-                // Bind (three-way)
-                $scope.totals = $firebaseArray(refTotal);
-
-                // Variables
-                $scope.newRFP = {}
-                $scope.newTotal = {}
+                //Variables for example
+                $scope.new1011 = {}
+                $scope.tenTotal = {
+                    value: 0
+                }
+                $scope.tenOnTheHour = {
+                    time: "10am"
+                }
+                $scope.tenQuarterPast = {
+                    time: "10.15am"
+                }
+                $scope.tenHalfPast = {
+                    time: "10.30am"
+                }
+                $scope.tenQuarterToo = {
+                    time: "10.45am"
+                }
+                $scope.elevenTotal = {
+                    value: 0
+                }
+                $scope.elevenOnTheHour = {
+                    time: "11am"
+                }
+                $scope.elevenQuarterPast = {
+                    time: "11.15am"
+                }
+                $scope.elevenHalfPast = {
+                    time: "11.30am"
+                }
+                $scope.elevenQuarterToo = {
+                    time: "11.45am"
+                }
                 $scope.lockName = false;
-                // Times 
-                $scope.tenTillEleven = "10am - 11am"
-                $scope.elevenTillTwelve = "11am - 12pm"
-                $scope.twelveTillOne = "12pm - 1pm"
-                $scope.oneTillTwo = "1pm - 2pm"
-                $scope.twoTillThree = "2pm - 3pm"
-                $scope.threeTillFour = "3pm - 4pm"
-                $scope.fourTillFive = "4pm - 5pm"
-                $scope.fiveTillSix = "5pm - 6pm"
-                $scope.sixTillSeven = "6pm - 7pm"
-                $scope.sevenTillEight = "7pm - 8pm"
-                $scope.nextDay = "Next Day"
+                // Create firebase ref (INSERT OUR URL HERE)
+                var dbURL = "https://rfpcards.firebaseio.com/"
+                var ref = new Firebase(dbURL + '/RFPs/');
+                // Bind (three-way)
+                $scope.tickets = $firebaseArray(ref);
 
+                // Add new chat message
+                $scope.createTicket = function(){
 
-                const totalsPath = new Firebase(dbURL + 'Totals/Array/');
-                var rfpsPath = new Firebase(dbURL + 'RFPs/Array/');
-
-                const rfpsPathDb = $firebaseArray(new Firebase(dbURL + 'RFPs/Array/'));
-
-                // Update Function
-                $scope.updateAllTotals = function(){
-
-                    totalsPath.update({
-                        tenTillEleven: $scope.newTotal.tenTillEleven,
-                        elevenTillTwelve: $scope.newTotal.elevenTillTwelve,
-                        twelveTillOne: $scope.newTotal.twelveTillOne,
-                        oneTillTwo: $scope.newTotal.oneTillTwo,
-                        twoTillThree: $scope.newTotal.twoTillThree,
-                        threeTillFour: $scope.newTotal.threeTillFour,
-                        fourTillFive: $scope.newTotal.fourTillFive,
-                        fiveTillSix: $scope.newTotal.fiveTillSix,
-                        sixTillSeven: $scope.newTotal.sixTillSeven,
-                        sevenTillEight: $scope.newTotal.sevenTillEight,
-                        nextDay: $scope.newTotal.nextDay
-                    });
-
-                    rfpsPath.update({
-                        tenTillEleven: $scope.newTotal.tenTillEleven,
-                        elevenTillTwelve: $scope.newTotal.elevenTillTwelve,
-                        twelveTillOne: $scope.newTotal.twelveTillOne,
-                        oneTillTwo: $scope.newTotal.oneTillTwo,
-                        twoTillThree: $scope.newTotal.twoTillThree,
-                        threeTillFour: $scope.newTotal.threeTillFour,
-                        fourTillFive: $scope.newTotal.fourTillFive,
-                        fiveTillSix: $scope.newTotal.fiveTillSix,
-                        sixTillSeven: $scope.newTotal.sixTillSeven,
-                        sevenTillEight: $scope.newTotal.sevenTillEight,
-                        nextDay: $scope.newTotal.nextDay
-                    });
+                    // Add it to firebase db (and let the magic happen)
+                    $scope.tickets.$add( $scope.new1011 );
                 }
 
+                $scope.deleteTicket = function(id){
 
-                // Decrease Number 
-                $scope.decreaseTotal1 = function(num){  
+                    ref.child(id).remove();
+                }
 
+                $scope.deleteAll = function() {
+                    ref.remove();
+                }
 
-                    if ("tenTillEleven".equals(num)){
-                        var tenTillElevenNum = rfpsPathDb.$getRecord("tenTillEleven").$value
-                        if (tenTillElevenNum > 0) {
-                            rfpsPath.update({
-                                tenTillEleven: tenTillElevenNum - 1
-                            });
-                        }
+                $scope.createTicket10 = function(num){
+
+                    var total = "" 
+                    var input = num 
+                    var segment = 4
+
+                    var sum = input % segment
+
+                    if (sum > 0) {
+                        total = input - sum
+                    }
+
+                    if (sum == 0){
+                        total = input
+                    }
+
+                    var equalQuarters = total / 4
+
+                    // Create on the hours 
+                    for (i = 0; i < equalQuarters; i++) {
+                        $scope.tickets.$add( $scope.tenOnTheHour );
+                    }
+                    // Create on the hours 
+                    for (i = 0; i < equalQuarters; i++) {
+                        $scope.tickets.$add( $scope.tenQuarterPast );
+                    }
+                    // Create on the hours 
+                    for (i = 0; i < equalQuarters; i++) {
+                        $scope.tickets.$add( $scope.tenHalfPast );
+                    }
+                    // Create on the hours 
+                    for (i = 0; i < equalQuarters; i++) {
+                        $scope.tickets.$add( $scope.tenQuarterToo );
                     }
 
                 }
 
-                $scope.decreaseTotal = function(num){ 
+                $scope.createTicket11 = function(num){
 
-                    var path = ""
-                    var pathNum = path + "Num"
+                    var total = "" 
+                    var input = num 
+                    var segment = 4
 
-                    switch (num) {
+                    var sum = input % segment
 
-                        case 10: path = "tenTillEleven";break;
-                        case 11: path = "elevenTillTwelve";break;
-                        case 12: path = "twelveTillOne";break;
-                        case 1: path = "oneTillTwo";break;
-                        case 2: path = "twoTillThree";break;
-                        case 3: path = "threeTillFour";break;
-                        case 4: path = "fourTillFive";break;
-                        case 5: path = "fiveTillSix";break;
-                        case 6: path = "sixTillSeven";break;
-                        case 7: path = "sevenTillEight";break;
-                        case 99: path = "tenTillEleven";break;
-                        default: path = ""
+                    if (sum > 0) {
+                        total = input - sum
                     }
 
-
-                    var pathNum = rfpsPathDb.$getRecord(String(path)).$value
-                    if (pathNum > 0) {
-                        rfpsPath.update({
-                            [path]: parseInt(pathNum) - 1
-
-                        });
+                    if (sum == 0){
+                        total = input
                     }
 
+                    var equalQuarters = total / 4
 
-                }
+                    // Create on the hours 
+                    for (i = 0; i < equalQuarters; i++) {
+                        $scope.tickets.$add( $scope.elevenOnTheHour );
+                    }
+                    // Create on the hours 
+                    for (i = 0; i < equalQuarters; i++) {
+                        $scope.tickets.$add( $scope.elevenQuarterPast );
+                    }
+                    // Create on the hours 
+                    for (i = 0; i < equalQuarters; i++) {
+                        $scope.tickets.$add( $scope.elevenHalfPast );
+                    }
+                    // Create on the hours 
+                    for (i = 0; i < equalQuarters; i++) {
+                        $scope.tickets.$add( $scope.elevenQuarterToo );
+                    }
 
-                $scope.increaseTotal = function(){
-
-                    var path = "nextDay"
-                    var pathNum = path + "Num"
-
-                    var pathNum = rfpsPathDb.$getRecord(String(path)).$value
-                    rfpsPath.update({
-                        [path]: parseInt(pathNum) + 1
-
-                    });
                 }
 
             });
@@ -167,29 +168,53 @@
                 border-radius: 0;
             }
 
-            .vertical {
-                display: inline-block;
-                width: 80px;
-                min-height: 100px;
-                -webkit-transform: rotate(-90deg); /* Chrome, Safari, Opera */
-                transform: rotate(-90deg);
-            }
-
             /* The heart of the matter */
             .testimonial-group > .row {
                 overflow-x: auto;
                 white-space: nowrap;
             }
-            .testimonial-group > .row > .col-xs-3 {
+            .testimonial-group > .row > .col-xs-2 {
                 display: inline-block;
                 float: none;
             }
 
-            /* Decorations */
-            .col-xs-3 { color: #fff; font-size: 48px; padding-bottom: 20px; padding-top: 18px; }
-            .col-xs-3:nth-child(3n+1) { background: #c69; }
-            .col-xs-3:nth-child(3n+2) { background: #9c6; }
-            .col-xs-3:nth-child(3n+3) { background: #69c; }
+            /* Decorations 
+            .col-xs-3 { color: #fff; padding-left: 0px; padding-right: 0px; padding-top: 10%}
+            .col-xs-3:nth-child(8n+1) { background: rgb(0, 0, 255); }
+            .col-xs-3:nth-child(8n+2) { background: rgb(0, 0, 240); }
+            .col-xs-3:nth-child(8n+3) { background: rgb(0, 0, 225); }
+            .col-xs-3:nth-child(8n+4) { background: rgb(0, 0, 210); }
+            .col-xs-3:nth-child(8n+5) { background: rgb(0, 0, 195); }
+            .col-xs-3:nth-child(8n+6) { background: rgb(0, 0, 170); }
+            .col-xs-3:nth-child(8n+7) { background: rgb(0, 0, 145); }
+            .col-xs-3:nth-child(8n+8) { background: rgb(0, 0, 120); }
+            */
+
+            .ticket {
+                height: 50vh;
+                padding-left: 0px; 
+                padding-right: 0px;
+                margin-left: 5px;
+                margin-right: 5px;
+                border-style: solid;
+                border-width: 1px;
+                
+            }
+            .ticketHead {
+                background: rgb(0, 0, 255);
+                height: 15%;
+                color: white;
+                padding-top: 10px;
+
+            }
+            .ticketBody {
+                background-color: white;
+                height: 70%;
+            }
+            .ticketFooter {
+                height 15%;
+                padding-top: 10px;
+            }
 
         </style>
     </head>
@@ -209,227 +234,62 @@
                 </div>
                 <div class="collapse navbar-collapse" id="myNavbar">
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#" id="Set" button data-toggle="collapse" data-target="#totals, #10-11, #11-12, #12-1, #1-2, #2-3, #3-4, #4-5, #5-6, #6-7, #7-8, #nxd"><span class="glyphicon glyphicon-user"></span></button> Set Totals</a></li>
+                        <li><a href="#" id="Set" button data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-user"></span></button> Set Totals</a></li>
                 </ul>
             </div>
         </div>
     </nav>
 
-<div class="jumbotron text-center">
-    <h1>Hi Matt!</h1>
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Set totals for the day</h4>
+            </div>
+            <div class="modal-body">
+                <label>Total for 10-11:
+                    <input type="number" name="input" ng-model="tenTotal.value"
+                           min="4" max="99" required>
+                </label>
+                <br>
+                <label>Total for 11-12:
+                    <input type="number" name="input" ng-model="elevenTotal.value"
+                           min="4" max="99" required>
+                </label>
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" 
+                        ng-click="deleteAll();
+                                  createTicket10(tenTotal.value); 
+                                  createTicket11(elevenTotal.value)"
+                        >Set Totals and Close</button>
+            </div>
+        </div>
+
+    </div>
 </div>
 
-<div class="container text-center testimonial-group">
-
-    <div id="totals" class="collapse">
-        <h1>Set Totals</h1>
-        <p>Click button to set totals</p>
-        <button ng-disabled="!newTotal.tenTillEleven" ng-click="updateAllTotals()" data-toggle="collapse" data-target="#totals, #10-11, #11-12, #12-1, #1-2, #2-3, #3-4, #4-5, #5-6, #6-7, #7-8, #nxd" class="btn btn-primary btn-sm">Set</button>            
-    </div>
-
-    <div class="row" ng-repeat="rfp in rfps">
-        <div class="col-xs-3" ng-repeat="total in totals">
-            <h5>{{tenTillEleven}}</h5>
-            <h2>{{rfp.tenTillEleven}} / <span class="smallText">{{total.tenTillEleven}}</span></h2>
-
-            <div ng-repeat="rfp in rfps">
-                <div class="progress vertical" ng-repeat="total in totals">
-                    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width: {{ (rfp.tenTillEleven / total.tenTillEleven * 100) }}%;">
-                    </div>  
-                </div>
+<div class="container-fluid text-center testimonial-group">
+    <div class="row">
+        <div class="col-xs-2 ticket" ng-repeat="ticket in tickets">
+            <div class="ticketHead">
+                <strong>{{ticket.time}}</strong>
             </div>
-
-            <div id="10-11" class="collapse">
-                <h5>Total</h5><input ng-model="newTotal.tenTillEleven" class="form-control input-sm" placeholder="Total"/>
+            <div class="ticketBody">
+                {{ticket.repairID}}  
             </div>
-
-            <button ng-click="decreaseTotal(10)" type="button" class="btn btn-primary btn-sm">Use</button>
-        </div>
-
-        <div class="col-xs-3" ng-repeat="total in totals">
-            <h5>{{ elevenTillTwelve }}</h5>
-            <h2>{{rfp.elevenTillTwelve}} / <span class="smallText">{{total.elevenTillTwelve}}</span></h2>
-
-            <div ng-repeat="rfp in rfps">
-                <div class="progress vertical" ng-repeat="total in totals">
-                    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width: {{ (rfp.elevenTillTwelve / total.elevenTillTwelve * 100) }}%;">
-                    </div>  
-                </div>
+            <div class="ticketFooter">
+                <button class="btn"ng-click="deleteTicket(ticket.$id)">Use</button>
             </div>
-
-            <div id="11-12" class="collapse">
-                <h5>Total</h5><input ng-model="newTotal.elevenTillTwelve" class="form-control input-sm" placeholder="Total"/>
-            </div>
-
-            <button ng-click="decreaseTotal(11)" type="button" class="btn btn-primary btn-sm">Use</button>
-        </div>
-
-        <div class="col-xs-3" ng-repeat="total in totals">
-            <h5>{{ twelveTillOne }}</h5>
-            <h2>{{rfp.twelveTillOne}} / <span class="smallText">{{total.twelveTillOne}}</span></h2>
-
-            <div ng-repeat="rfp in rfps">
-                <div class="progress vertical" ng-repeat="total in totals">
-                    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width: {{ (rfp.twelveTillOne / total.twelveTillOne * 100) }}%;">
-                    </div>  
-                </div>
-            </div>
-
-            <div id="12-1" class="collapse">
-                <h5>Total</h5><input ng-model="newTotal.twelveTillOne" class="form-control input-sm" placeholder="Total"/>
-            </div>
-
-            <button ng-click="decreaseTotal(12)" type="button" class="btn btn-primary btn-sm">Use</button>
-        </div>
-
-        <div class="col-xs-3" ng-repeat="total in totals">
-            <h5>{{ oneTillTwo }}</h5>    
-            <h2>{{rfp.oneTillTwo}} / <span class="smallText">{{total.oneTillTwo}}</span></h2>
-
-            <div ng-repeat="rfp in rfps">
-                <div class="progress vertical" ng-repeat="total in totals">
-                    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width: {{ (rfp.oneTillTwo / total.oneTillTwo * 100) }}%;">
-                    </div>  
-                </div>
-            </div>
-
-            <div id="1-2" class="collapse">
-                <h5>Total</h5><input ng-model="newTotal.oneTillTwo" class="form-control input-sm" placeholder="Total"/>
-            </div>
-
-            <button ng-click="decreaseTotal(1)" type="button" class="btn btn-primary btn-sm">Use</button>
-        </div>
-
-        <div class="col-xs-3" ng-repeat="total in totals">
-            <h5>{{ twoTillThree }}</h5>
-            <h2>{{rfp.twoTillThree}} / <span class="smallText">{{total.twoTillThree}}</span></h2>
-
-            <div ng-repeat="rfp in rfps">
-                <div class="progress vertical" ng-repeat="total in totals">
-                    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width: {{ (rfp.twoTillThree / total.twoTillThree * 100) }}%;">
-                    </div>  
-                </div>
-            </div>
-
-            <div id="2-3" class="collapse">
-                <h5>Total</h5><input ng-model="newTotal.twoTillThree" class="form-control input-sm" placeholder="Total"/>
-            </div>
-
-            <button ng-click="decreaseTotal(2)" type="button" class="btn btn-primary btn-sm">Use</button>
-        </div>
-
-        <div class="col-xs-3" ng-repeat="total in totals">
-            <h5>{{ threeTillFour }}</h5>
-            <h2>{{rfp.threeTillFour}} / <span class="smallText">{{total.threeTillFour}}</span></h2>
-
-            <div ng-repeat="rfp in rfps">
-                <div class="progress vertical" ng-repeat="total in totals">
-                    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width: {{ (rfp.threeTillFour / total.threeTillFour * 100) }}%;">
-                    </div>  
-                </div>
-            </div>
-
-            <div id="3-4" class="collapse">
-                <h5>Total</h5><input ng-model="newTotal.threeTillFour" class="form-control input-sm" placeholder="Total"/>
-            </div>
-
-            <button ng-click="decreaseTotal(3)" type="button" class="btn btn-primary btn-sm">Use</button>
-        </div>
-
-        <div class="col-xs-3" ng-repeat="total in totals">
-            <h5>{{ fourTillFive }}</h5>
-            <h2>{{rfp.fourTillFive}} / <span class="smallText">{{total.fourTillFive}}</span></h2>
-
-            <div ng-repeat="rfp in rfps">
-                <div class="progress vertical" ng-repeat="total in totals">
-                    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width: {{ (rfp.fourTillFive / total.fourTillFive * 100) }}%;">
-                    </div>  
-                </div>
-            </div>
-
-            <div id="4-5" class="collapse">
-                <h5>Total</h5><input ng-model="newTotal.fourTillFive" class="form-control input-sm" placeholder="Total"/>
-            </div>
-
-            <button ng-click="decreaseTotal(4)" type="button" class="btn btn-primary btn-sm">Use</button>
-        </div>
-
-        <div class="col-xs-3" ng-repeat="total in totals">
-            <h5>{{ fiveTillSix }}</h5>
-            <h2>{{rfp.fiveTillSix}} / <span class="smallText">{{total.fiveTillSix}}</span></h2>
-
-            <div ng-repeat="rfp in rfps">
-                <div class="progress vertical" ng-repeat="total in totals">
-                    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width: {{ (rfp.fiveTillSix / total.fiveTillSix * 100) }}%;">
-                    </div>  
-                </div>
-            </div>
-
-            <div id="5-6" class="collapse">
-                <h5>Total</h5><input ng-model="newTotal.fiveTillSix" class="form-control input-sm" placeholder="Total"/>
-            </div>
-
-            <button ng-click="decreaseTotal(5)" type="button" class="btn btn-primary btn-sm">Use</button>
-        </div>
-
-        <div class="col-xs-3" ng-repeat="total in totals">
-            <h5>{{ sixTillSeven }}</h5>
-            <h2>{{rfp.sixTillSeven}} / <span class="smallText">{{total.sixTillSeven}}</span></h2>
-
-            <div ng-repeat="rfp in rfps">
-                <div class="progress vertical" ng-repeat="total in totals">
-                    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width: {{ (rfp.sixTillSeven / total.sixTillSeven * 100) }}%;">
-                    </div>  
-                </div>
-            </div>
-
-            <div id="6-7" class="collapse">
-                <h5>Total</h5><input ng-model="newTotal.sixTillSeven" class="form-control input-sm" placeholder="Total"/>
-            </div>
-
-            <button ng-click="decreaseTotal(6)" type="button" class="btn btn-primary btn-sm">Use</button>
-        </div>
-
-        <div class="col-xs-3" ng-repeat="total in totals">
-            <h5>{{ sevenTillEight }}</h5>
-            <h2>{{rfp.sevenTillEight}} / <span class="smallText">{{total.sevenTillEight}}</span></h2>
-
-            <div ng-repeat="rfp in rfps">
-                <div class="progress vertical" ng-repeat="total in totals">
-                    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width: {{ (rfp.sevenTillEight / total.sevenTillEight * 100) }}%;">
-                    </div>  
-                </div>
-            </div>
-
-            <div id="7-8" class="collapse">
-                <h5>Total</h5><input ng-model="newTotal.sevenTillEight" class="form-control input-sm" placeholder="Total"/>
-            </div>
-
-            <button ng-click="decreaseTotal(7)" type="button" class="btn btn-primary btn-sm">Use</button>
-        </div>
-        <!-- Last Div -->
-    </div>
-    
-    <div class="row" ng-repeat="rfp in rfps">
-    <div class="col-xs-12" ng-repeat="total in totals">
-            <h5>{{ nextDay }}</h5>
-            <h2>{{rfp.nextDay}}</h2>
-
-            <div ng-repeat="rfp in rfps">
-                <div class="progress vertical" ng-repeat="total in totals">
-                    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width: {{ (rfp.nextDay / total.nextDay * 100) }}%;">
-                    </div>  
-                </div>
-            </div>
-
-            <div id="nxd" class="collapse">
-                <h5>Total</h5><input ng-model="newTotal.nextDay" class="form-control input-sm" placeholder="Total"/>
-            </div>
-
-            <button ng-click="increaseTotal()" type="button" class="btn btn-primary btn-sm">Use</button>
         </div>
     </div>
+</div>
 
-
-    </body>
+</body>
 </html>
