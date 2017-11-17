@@ -277,6 +277,28 @@
     </div>
 </div>
 
+<!-- Validation Modal -->
+<div id="successModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Success!</h4>
+            </div>
+            <div class="modal-body text-center">
+                <h1>Ticket used! {{ticket.$id}}</h1>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default text-center" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
 <div class="container-fluid text-center horizontalScroll">
     <div class="row">
         <div class="col-xs-2 ticket" ng-repeat="ticket in tickets">
@@ -287,7 +309,7 @@
                 {{ticket.repairID}}  
             </div>
             <div class="ticketFooter">
-                <button class="btn"ng-click="deleteTicket(ticket.$id)">Use</button>
+                <button class="btn btn-secondary" data-toggle="modal" data-target="#successModal" ng-click="deleteTicket(ticket.$id)">Use</button>
             </div>
         </div>
     </div>
