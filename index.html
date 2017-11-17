@@ -169,11 +169,12 @@
             }
 
             /* The heart of the matter */
-            .testimonial-group > .row {
-                overflow-x: auto;
+            .horizontalScroll > .row {
+                overflow-x: scroll;
+                -webkit-overflow-scrolling: touch;
                 white-space: nowrap;
             }
-            .testimonial-group > .row > .col-xs-2 {
+            .horizontalScroll > .row > .col-xs-2 {
                 display: inline-block;
                 float: none;
             }
@@ -275,7 +276,7 @@
     </div>
 </div>
 
-<div class="container-fluid text-center testimonial-group">
+<div class="container-fluid text-center horizontalScroll">
     <div class="row">
         <div class="col-xs-2 ticket" ng-repeat="ticket in tickets">
             <div class="ticketHead">
