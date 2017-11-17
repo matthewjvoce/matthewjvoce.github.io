@@ -55,10 +55,10 @@
                 $scope.sevenTillEight = "7pm - 8pm"
                 $scope.nextDay = "Next Day"
 
-                
+
                 const totalsPath = new Firebase(dbURL + 'Totals/Array/');
                 var rfpsPath = new Firebase(dbURL + 'RFPs/Array/');
-                
+
                 const rfpsPathDb = $firebaseArray(new Firebase(dbURL + 'RFPs/Array/'));
 
                 // Update Function
@@ -96,7 +96,7 @@
 
                 // Decrease Number 
                 $scope.decreaseTotal1 = function(num){  
-                    
+
 
                     if ("tenTillEleven".equals(num)){
                         var tenTillElevenNum = rfpsPathDb.$getRecord("tenTillEleven").$value
@@ -106,66 +106,53 @@
                             });
                         }
                     }
-                    
+
                 }
-                
+
                 $scope.decreaseTotal = function(num){ 
-                    
+
                     var path = ""
                     var pathNum = path + "Num"
-                
-                switch (num) {
-                        
-                    case 10: path = "tenTillEleven";break;
-                    case 11: path = "elevenTillTwelve";break;
-                    case 12: path = "twelveTillOne";break;
-                    case 1: path = "oneTillTwo";break;
-                    case 2: path = "twoTillThree";break;
-                    case 3: path = "threeTillFour";break;
-                    case 4: path = "fourTillFive";break;
-                    case 5: path = "fiveTillSix";break;
-                    case 6: path = "sixTillSeven";break;
-                    case 7: path = "sevenTillEight";break;
-                    case 99: path = "tenTillEleven";break;
-                    default: path = ""
-                }
-                
-                    
+
+                    switch (num) {
+
+                        case 10: path = "tenTillEleven";break;
+                        case 11: path = "elevenTillTwelve";break;
+                        case 12: path = "twelveTillOne";break;
+                        case 1: path = "oneTillTwo";break;
+                        case 2: path = "twoTillThree";break;
+                        case 3: path = "threeTillFour";break;
+                        case 4: path = "fourTillFive";break;
+                        case 5: path = "fiveTillSix";break;
+                        case 6: path = "sixTillSeven";break;
+                        case 7: path = "sevenTillEight";break;
+                        case 99: path = "tenTillEleven";break;
+                        default: path = ""
+                    }
+
+
                     var pathNum = rfpsPathDb.$getRecord(String(path)).$value
                     if (pathNum > 0) {
-                    rfpsPath.update({
-                        [path]: parseInt(pathNum) - 1
+                        rfpsPath.update({
+                            [path]: parseInt(pathNum) - 1
 
-                    });
+                        });
                     }
-                
-    
+
+
                 }
-                
+
                 $scope.increaseTotal = function(){
-                    
+
                     var path = "nextDay"
                     var pathNum = path + "Num"
-                    
+
                     var pathNum = rfpsPathDb.$getRecord(String(path)).$value
                     rfpsPath.update({
                         [path]: parseInt(pathNum) + 1
 
                     });
                 }
-            
-            });
-        </script>
-
-        <!-- Additional JavaScript -->
-        <script>
-            document.getElementById("myNavbar")
-                .addEventListener("keyup", function(event) {
-                event.preventDefault();
-                if (event.keyCode === 13) {
-                    document.getElementById("#Set").click();
-                }
-
 
             });
         </script>
@@ -187,6 +174,22 @@
                 -webkit-transform: rotate(-90deg); /* Chrome, Safari, Opera */
                 transform: rotate(-90deg);
             }
+
+            /* The heart of the matter */
+            .testimonial-group > .row {
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+            .testimonial-group > .row > .col-xs-3 {
+                display: inline-block;
+                float: none;
+            }
+
+            /* Decorations */
+            .col-xs-3 { color: #fff; font-size: 48px; padding-bottom: 20px; padding-top: 18px; }
+            .col-xs-3:nth-child(3n+1) { background: #c69; }
+            .col-xs-3:nth-child(3n+2) { background: #9c6; }
+            .col-xs-3:nth-child(3n+3) { background: #69c; }
 
         </style>
     </head>
@@ -216,7 +219,7 @@
     <h1>Hi Matt!</h1>
 </div>
 
-<div class="container text-center">
+<div class="container text-center testimonial-group">
 
     <div id="totals" class="collapse">
         <h1>Set Totals</h1>
@@ -235,7 +238,7 @@
                     </div>  
                 </div>
             </div>
-            
+
             <div id="10-11" class="collapse">
                 <h5>Total</h5><input ng-model="newTotal.tenTillEleven" class="form-control input-sm" placeholder="Total"/>
             </div>
@@ -253,7 +256,7 @@
                     </div>  
                 </div>
             </div>
-            
+
             <div id="11-12" class="collapse">
                 <h5>Total</h5><input ng-model="newTotal.elevenTillTwelve" class="form-control input-sm" placeholder="Total"/>
             </div>
@@ -271,7 +274,7 @@
                     </div>  
                 </div>
             </div>
-            
+
             <div id="12-1" class="collapse">
                 <h5>Total</h5><input ng-model="newTotal.twelveTillOne" class="form-control input-sm" placeholder="Total"/>
             </div>
@@ -289,18 +292,14 @@
                     </div>  
                 </div>
             </div>
-            
+
             <div id="1-2" class="collapse">
                 <h5>Total</h5><input ng-model="newTotal.oneTillTwo" class="form-control input-sm" placeholder="Total"/>
             </div>
 
             <button ng-click="decreaseTotal(1)" type="button" class="btn btn-primary btn-sm">Use</button>
         </div>
-    </div>
-    
-    <!-- Second Row -->
-    
-    <div class="row" ng-repeat="rfp in rfps">
+
         <div class="col-xs-3" ng-repeat="total in totals">
             <h5>{{ twoTillThree }}</h5>
             <h2>{{rfp.twoTillThree}} / <span class="smallText">{{total.twoTillThree}}</span></h2>
@@ -311,7 +310,7 @@
                     </div>  
                 </div>
             </div>
-            
+
             <div id="2-3" class="collapse">
                 <h5>Total</h5><input ng-model="newTotal.twoTillThree" class="form-control input-sm" placeholder="Total"/>
             </div>
@@ -329,7 +328,7 @@
                     </div>  
                 </div>
             </div>
-            
+
             <div id="3-4" class="collapse">
                 <h5>Total</h5><input ng-model="newTotal.threeTillFour" class="form-control input-sm" placeholder="Total"/>
             </div>
@@ -347,14 +346,14 @@
                     </div>  
                 </div>
             </div>
-            
+
             <div id="4-5" class="collapse">
                 <h5>Total</h5><input ng-model="newTotal.fourTillFive" class="form-control input-sm" placeholder="Total"/>
             </div>
 
             <button ng-click="decreaseTotal(4)" type="button" class="btn btn-primary btn-sm">Use</button>
         </div>
-        
+
         <div class="col-xs-3" ng-repeat="total in totals">
             <h5>{{ fiveTillSix }}</h5>
             <h2>{{rfp.fiveTillSix}} / <span class="smallText">{{total.fiveTillSix}}</span></h2>
@@ -365,7 +364,7 @@
                     </div>  
                 </div>
             </div>
-            
+
             <div id="5-6" class="collapse">
                 <h5>Total</h5><input ng-model="newTotal.fiveTillSix" class="form-control input-sm" placeholder="Total"/>
             </div>
@@ -373,12 +372,6 @@
             <button ng-click="decreaseTotal(5)" type="button" class="btn btn-primary btn-sm">Use</button>
         </div>
 
-        
-    </div>
-    
-    <!-- Third Row -->
-    
-    <div class="row" ng-repeat="rfp in rfps">
         <div class="col-xs-3" ng-repeat="total in totals">
             <h5>{{ sixTillSeven }}</h5>
             <h2>{{rfp.sixTillSeven}} / <span class="smallText">{{total.sixTillSeven}}</span></h2>
@@ -389,7 +382,7 @@
                     </div>  
                 </div>
             </div>
-            
+
             <div id="6-7" class="collapse">
                 <h5>Total</h5><input ng-model="newTotal.sixTillSeven" class="form-control input-sm" placeholder="Total"/>
             </div>
@@ -407,17 +400,18 @@
                     </div>  
                 </div>
             </div>
-            
+
             <div id="7-8" class="collapse">
                 <h5>Total</h5><input ng-model="newTotal.sevenTillEight" class="form-control input-sm" placeholder="Total"/>
             </div>
 
             <button ng-click="decreaseTotal(7)" type="button" class="btn btn-primary btn-sm">Use</button>
         </div>
-        
-        <div class="col-xs-3"></div>
-
-        <div class="col-xs-3" ng-repeat="total in totals">
+        <!-- Last Div -->
+    </div>
+    
+    <div class="row" ng-repeat="rfp in rfps">
+    <div class="col-xs-12" ng-repeat="total in totals">
             <h5>{{ nextDay }}</h5>
             <h2>{{rfp.nextDay}}</h2>
 
@@ -427,20 +421,15 @@
                     </div>  
                 </div>
             </div>
-            
+
             <div id="nxd" class="collapse">
                 <h5>Total</h5><input ng-model="newTotal.nextDay" class="form-control input-sm" placeholder="Total"/>
             </div>
 
             <button ng-click="increaseTotal()" type="button" class="btn btn-primary btn-sm">Use</button>
         </div>
-
-        
     </div>
 
-    <!-- Last Div -->
-</div>
 
-
-</body>
+    </body>
 </html>
