@@ -28,8 +28,18 @@
 
                 //Variables for example
                 $scope.new1011 = {}
-                $scope.tenTotal = {
-                    value: 0
+                $scope.totals = {
+                    ten: 0,
+                    eleven: 0,
+                    twelve: 0,
+                    one: 0,
+                    two: 0,
+                    three: 0,
+                    four: 0,
+                    five: 0,
+                    six: 0,
+                    seven: 0,
+                    eight: 0
                 }
                 $scope.tenOnTheHour = {
                     time: "10am"
@@ -81,7 +91,7 @@
                     ref.remove();
                 }
 
-                $scope.createTicket10 = function(num){
+                $scope.createTicket10 = function(num, type){
 
                     var total = "" 
                     var input = num 
@@ -98,10 +108,15 @@
                     }
 
                     var equalQuarters = total / 4
+                    
+                    var OnTheHour = 10
+                    if (type == 10) {
+                        
+                    }
 
                     // Create on the hours 
                     for (i = 0; i < equalQuarters; i++) {
-                        $scope.tickets.$add( $scope.tenOnTheHour );
+                        $scope.tickets.$add($scope.tenOnTheHour);
                     }
                     // Create on the hours 
                     for (i = 0; i < equalQuarters; i++) {
@@ -178,6 +193,7 @@
             .horizontalScroll > .row > .col-xs-2 {
                 display: inline-block;
                 float: none;
+                
             }
 
             /* Decorations 
@@ -193,20 +209,23 @@
             */
 
             .ticket {
-                height: 50vh;
+                height: 70vh;
                 padding-left: 0px; 
                 padding-right: 0px;
                 margin-left: 5px;
                 margin-right: 5px;
                 border-style: solid;
-                border-width: 1px;
-                
+                border-width: 0px;
+
             }
             .ticketHead {
                 background: rgb(0, 0, 255);
                 height: 15%;
                 color: white;
+                font-size: 2em;
                 padding-top: 10px;
+                border-top-left-radius: .5em;
+                border-top-right-radius: .5em;
 
             }
             .ticketBody {
@@ -216,6 +235,13 @@
             .ticketFooter {
                 height 15%;
                 padding-top: 10px;
+                background-color: white;
+                border-bottom-left-radius: 1.5em;
+                border-bottom-right-radius: 1.5em;
+            }
+            .spacer {
+                height: 10vh;
+                background-color: rgb(249, 249, 249);
             }
 
         </style>
@@ -247,20 +273,22 @@
     <div class="modal-dialog">
 
         <!-- Modal content-->
-        <div class="modal-content">
+        <div class="modal-content text-center">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">Set totals for the day</h4>
             </div>
             <div class="modal-body">
                 <label>Total for 10-11:
-                    <input type="number" name="input" ng-model="tenTotal.value"
-                           min="4" max="99" required>
+                    <input type="number" name="input" ng-model="totals.ten" min="4" max="99" required>
                 </label>
                 <br>
                 <label>Total for 11-12:
-                    <input type="number" name="input" ng-model="elevenTotal.value"
-                           min="4" max="99" required>
+                    <input type="number" name="input" ng-model="totals.eleven" min="4" max="99" required>
+                </label>
+                <br>
+                <label>Total for 12-1:
+                    <input type="number" name="input" ng-model="totals.twelve" min="4" max="99" required>
                 </label>
 
             </div>
@@ -268,8 +296,8 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal" 
                         ng-click="deleteAll();
-                                  createTicket10(tenTotal.value); 
-                                  createTicket11(elevenTotal.value)"
+                                  createTicket10(totals.ten, 10); 
+                                  createTicket11(totals.eleven, 11)"
                         >Set Totals and Close</button>
             </div>
         </div>
@@ -288,7 +316,7 @@
                 <h4 class="modal-title">Success!</h4>
             </div>
             <div class="modal-body text-center">
-                <h1>Ticket used! {{ticket.$id}}</h1>
+                <h1>Ticket used!</h1>
             </div>
 
             <div class="modal-footer">
@@ -299,7 +327,9 @@
     </div>
 </div>
 
-<div class="container-fluid text-center horizontalScroll">
+<div class="spacer"></div>
+
+<div class="container-fluid text-center horizontalScroll" style="background-color: rgb(249, 249, 249);">
     <div class="row">
         <div class="col-xs-2 ticket" ng-repeat="ticket in tickets">
             <div class="ticketHead">
@@ -314,6 +344,8 @@
         </div>
     </div>
 </div>
+
+<div class="spacer"></div>
 
 </body>
 </html>
