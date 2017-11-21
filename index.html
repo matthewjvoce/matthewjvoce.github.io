@@ -1,3 +1,4 @@
+​
 <!DOCTYPE html>
 <html ng-app="app">
     <head>
@@ -20,12 +21,10 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <!-- Latest compiled JavaScript -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
         <!-- Angular app -->
         <script>
             var app = angular.module("app", ["firebase"]);
             app.controller("RootCtrl", function($scope, $firebaseArray) {
-
                 //Variables for example
                 $scope.totals = {
                     ten: 0,
@@ -37,77 +36,81 @@
                     four: 0,
                     five: 0,
                     six: 0,
-                    seven: 0,
-                    eight: 0
+                    seven: 0
                 }
                 $scope.tenOnTheHour = {time: "10am"}
                 $scope.tenQuarterPast = {time: "10.15am"}
                 $scope.tenHalfPast = {time: "10.30am"}
                 $scope.tenQuarterTo = {time: "10.45am"}
-                
                 $scope.elevenOnTheHour = {time: "11am"}
                 $scope.elevenQuarterPast = {time: "11.15am"}
                 $scope.elevenHalfPast = {time: "11.30am"}
                 $scope.elevenQuarterTo = {time: "11.45am"}
-                
                 $scope.twelveOnTheHour = {time: "12pm"}
                 $scope.twelveQuarterPast = {time: "12.15pm"}
                 $scope.twelveHalfPast = {time: "12.30pm"}
                 $scope.twelveQuarterTo = {time: "12.45pm"}
-                
                 $scope.oneOnTheHour = {time: "1pm"}
                 $scope.oneQuarterPast = {time: "1.15pm"}
                 $scope.oneHalfPast = {time: "1.30pm"}
                 $scope.oneQuarterTo = {time: "1.45pm"}
-                
-                
+                $scope.twoOnTheHour = {time: "2pm"}
+                $scope.twoQuarterPast = {time: "2.15pm"}
+                $scope.twoHalfPast = {time: "2.30pm"}
+                $scope.twoQuarterTo = {time: "2.45pm"}
+                $scope.threeOnTheHour = {time: "3pm"}
+                $scope.threeQuarterPast = {time: "3.15pm"}
+                $scope.threeHalfPast = {time: "3.30pm"}
+                $scope.threeQuarterTo = {time: "3.45pm"}
+                $scope.fourOnTheHour = {time: "4pm"}
+                $scope.fourQuarterPast = {time: "4.15pm"}
+                $scope.fourHalfPast = {time: "4.30pm"}
+                $scope.fourQuarterTo = {time: "4.45pm"}
+                $scope.fiveOnTheHour = {time: "5pm"}
+                $scope.fiveQuarterPast = {time: "5.15pm"}
+                $scope.fiveHalfPast = {time: "5.30pm"}
+                $scope.fiveQuarterTo = {time: "5.45pm"}
+                $scope.sixOnTheHour = {time: "6pm"}
+                $scope.sixQuarterPast = {time: "6.15pm"}
+                $scope.sixHalfPast = {time: "6.30pm"}
+                $scope.sixQuarterTo = {time: "6.45pm"}
+                $scope.sevenOnTheHour = {time: "7pm"}
+                $scope.sevenQuarterPast = {time: "7.15pm"}
+                $scope.sevenHalfPast = {time: "7.30pm"}
+                $scope.sevenQuarterTo = {time: "7.45pm"}
                 $scope.lockName = false;
-                
-                // Create firebase ref (INSERT OUR URL HERE)
+                // Create firebase ref
                 var dbURL = "https://rfpcards.firebaseio.com/"
                 var ref = new Firebase(dbURL + '/RFPs/');
                 // Bind (three-way)
                 $scope.tickets = $firebaseArray(ref);
-                
                 // Add new chat message
                 $scope.createTicket = function(){
                     $scope.tickets.$add( $scope.new1011 );
                 }
-                
                 // Delete Ticket
                 $scope.deleteTicket = function(id){
                     ref.child(id).remove();
                 }
-                
                 // Delete All
                 $scope.deleteAll = function() {
                     ref.remove();
                 }
-                
-
                 $scope.createTicket10 = function(num, type){
-
-                    var total = "" 
-                    var input = num 
+                    var total = ""
+                    var input = num
                     var segment = 4
-
                     var sum = input % segment
-
                     if (sum > 0) {
                         total = input - sum
                     }
-
                     if (sum == 0){
                         total = input
                     }
-
                     var equalQuarters = total / 4
-                    
                     var OnTheHour = 10
                     if (type == 10) {
-                        
                     }
-
                     // Create on the hour
                     for (i = 0; i < equalQuarters; i++) {
                         $scope.tickets.$add($scope.tenOnTheHour);
@@ -116,33 +119,26 @@
                     for (i = 0; i < equalQuarters; i++) {
                         $scope.tickets.$add( $scope.tenQuarterPast );
                     }
-                    // Create half past 
+                    // Create half past
                     for (i = 0; i < equalQuarters; i++) {
                         $scope.tickets.$add( $scope.tenHalfPast );
                     }
-                    // Create quarter to 
+                    // Create quarter to
                     for (i = 0; i < equalQuarters; i++) {
                         $scope.tickets.$add( $scope.tenQuarterTo );
                     }
-
                 }
-
                 $scope.createTicket11 = function(num){
-
-                    var total = "" 
+                    var total = ""
                     var input = num
-                    
                     var sum = input % 4
-
                     if (sum > 0) {
                         total = input - sum
                     }
                     else if (sum == 0){
                         total = input
                     }
-
                     var equalQuarters = total / 4
-
                     for (i = 0; i < equalQuarters; i++) {
                         $scope.tickets.$add( $scope.elevenOnTheHour );
                     }
@@ -155,25 +151,18 @@
                     for (i = 0; i < equalQuarters; i++) {
                         $scope.tickets.$add( $scope.elevenQuarterTo );
                     }
-
                 }
-                
                 $scope.createTicket12 = function(num){
-
-                    var total = "" 
+                    var total = ""
                     var input = num
-                    
                     var sum = input % 4
-
                     if (sum > 0) {
                         total = input - sum
                     }
                     else if (sum == 0){
                         total = input
                     }
-
                     var equalQuarters = total / 4
-
                     for (i = 0; i < equalQuarters; i++) {
                         $scope.tickets.$add( $scope.twelveOnTheHour );
                     }
@@ -186,12 +175,61 @@
                     for (i = 0; i < equalQuarters; i++) {
                         $scope.tickets.$add( $scope.twelveQuarterTo );
                     }
-
                 }
 
+                $scope.createTickets = function(num, time){
+
+                    var total = ""
+                    var input = num
+                    var sum = input % 4
+
+                    if (sum > 0) {
+                        total = input - sum
+                    }
+                    else if (sum == 0){
+                        total = input
+                    }
+
+                    var onTheHourValue = ""
+                    var quarterPastValue = ""
+                    var halfPastValue = ""
+                    var quarterToValue = ""
+
+                    switch(time) {
+                        case 10:
+                            var onTheHourValue = "10am"
+                            var quarterPastValue = "10.15am"
+                            var halfPastValue = "10.30am"
+                            var quarterToValue = "10.45am" 
+                            break;
+                        case n:
+                            code block
+                            break;
+                        default:
+                            code block
+                    }
+
+                    $scope.onTheHour = {time: [onTheHourValue] }
+                    $scope.quarterPast = {time: [quarterPastValue] }
+                    $scope.halfPast = {time: [halfPastValue] }
+                    $scope.quarterTo = {time: [quarterToValue] }
+
+                    var equalQuarters = total / 4
+                    for (i = 0; i < equalQuarters; i++) {
+                        $scope.tickets.$add( $scope.onTheHour );
+                    }
+                    for (i = 0; i < equalQuarters; i++) {
+                        $scope.tickets.$add( $scope.quarterPast );
+                    }
+                    for (i = 0; i < equalQuarters; i++) {
+                        $scope.tickets.$add( $scope.halfPast );
+                    }
+                    for (i = 0; i < equalQuarters; i++) {
+                        $scope.tickets.$add( $scope.quarterTo );
+                    }
+                }
             });
         </script>
-
         <style>
             .smallText {
                 font-size: 14px;
@@ -201,7 +239,6 @@
                 -moz-border-radius: 0;
                 border-radius: 0;
             }
-
             /* The heart of the matter */
             .horizontalScroll > .row {
                 overflow-y: hidden;
@@ -212,10 +249,8 @@
             .horizontalScroll > .row > .col-xs-2 {
                 display: inline-block;
                 float: none;
-                
             }
-
-            /* Decorations 
+            /* Decorations
             .col-xs-3 { color: #fff; padding-left: 0px; padding-right: 0px; padding-top: 10%}
             .col-xs-3:nth-child(8n+1) { background: rgb(0, 0, 255); }
             .col-xs-3:nth-child(8n+2) { background: rgb(0, 0, 240); }
@@ -226,16 +261,14 @@
             .col-xs-3:nth-child(8n+7) { background: rgb(0, 0, 145); }
             .col-xs-3:nth-child(8n+8) { background: rgb(0, 0, 120); }
             */
-
             .ticket {
                 height: 70vh;
-                padding-left: 0px; 
+                padding-left: 0px;
                 padding-right: 0px;
                 margin-left: 5px;
                 margin-right: 5px;
                 border-style: solid;
                 border-width: 0px;
-
             }
             .ticketHead {
                 background: rgb(33, 75, 116);
@@ -245,7 +278,6 @@
                 padding-top: 10px;
                 border-top-left-radius: .5em;
                 border-top-right-radius: .5em;
-
             }
             .ticketBody {
                 background-color: white;
@@ -261,12 +293,9 @@
             .spacer {
                 height: 10vh;
             }
-
         </style>
     </head>
-
     <body ng-controller="RootCtrl">
-
         <!-- Navbar -->
         <nav class="navbar navbar-inverse">
             <div class="container-fluid">
@@ -274,7 +303,7 @@
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
-                        <span class="icon-bar"></span> 
+                        <span class="icon-bar"></span>
                     </button>
                     <a class="navbar-brand" href="#"></a>
                 </div>
@@ -285,11 +314,9 @@
             </div>
         </div>
     </nav>
-
 <!-- Modal -->
 <div id="myModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
-
         <!-- Modal content-->
         <div class="modal-content text-center">
             <div class="modal-header">
@@ -298,39 +325,40 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class=".col-xs-3">
-                <label>Total for 10-11:
-                    <input type="number" name="input" ng-model="totals.ten" min="4" max="99" required>
-                </label>
+                    <div class="col-xs-3">
+                        <label>Total for 10-11:
+                            <input type="number" name="input" ng-model="totals.ten" min="4" max="99" required>
+                        </label>
                     </div>
-                <br>
-                <label>Total for 11-12:
-                    <input type="number" name="input" ng-model="totals.eleven" min="4" max="99" required>
-                </label>
-                <br>
-                <label>Total for 12-1:
-                    <input type="number" name="input" ng-model="totals.twelve" min="4" max="99" required>
-                </label>
+
+                    <div class="col-xs-3">
+                        <label>Total for 11-12:
+                            <input type="number" name="input" ng-model="totals.eleven" min="4" max="99" required>
+                        </label>
+                    </div>
+
+                    <div class="col-xs-3">
+                        <label>Total for 12-1:
+                            <input type="number" name="input" ng-model="totals.twelve" min="4" max="99" required>
+                        </label>
+                    </div>
                 </div>
             </div>
-
+            
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal" 
+                <button type="button" class="btn btn-default" data-dismiss="modal"
                         ng-click="deleteAll();
-                                  createTicket10(totals.ten, 10); 
+                                  createTickets(totals.ten, 10);
                                   createTicket11(totals.eleven, 11);
                                   createTicket12(totals.twelve, 12);"
                         >Set Totals and Close</button>
             </div>
         </div>
-
     </div>
 </div>
-
 <!-- Validation Modal -->
 <div id="successModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
-
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
@@ -340,34 +368,36 @@
             <div class="modal-body text-center">
                 <h1>Ticket used!</h1>
             </div>
-
             <div class="modal-footer">
                 <button type="button" class="btn btn-default text-center" data-dismiss="modal">Close</button>
             </div>
         </div>
-
     </div>
 </div>
 
-<div class="spacer"></div>
+<div class="container-fluid text-center">
 
-<div class="jumbotrom text-center horizontalScroll" style="background-color: rgb(249, 249, 249);">
-    <div class="row">
-        <div class="col-xs-2 ticket" ng-repeat="ticket in tickets">
-            <div class="ticketHead">
-                <strong>{{ticket.time}}</strong>
-            </div>
-            <div class="ticketBody">
-                {{ticket.repairID}}  
-            </div>
-            <div class="ticketFooter">
-                <button class="btn btn-secondary" data-toggle="modal" data-target="#successModal" ng-click="deleteTicket(ticket.$id)">Use</button>
+    <div class="spacer"></div>
+
+    <div class="horizontalScroll">
+        <div class="row">
+            <div class="col-xs-2 ticket" ng-repeat="ticket in tickets">
+                <div class="ticketHead">
+                    <strong>{{ticket.time}}</strong>
+                </div>
+                <div class="ticketBody">
+                    {{ticket.repairID}}
+                </div>
+                <div class="ticketFooter">
+                    <button class="btn btn-secondary" data-toggle="modal" data-target="#successModal" ng-click="deleteTicket(ticket.$id)">Use</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<div class="spacer"></div>
+    <div class="spacer"></div>
+
+</div>
 
 </body>
 </html>
