@@ -37,8 +37,9 @@
                     six: 0,
                     seven: 0
                 }
+
                 $scope.lockName = false;
-                
+
                 // Create firebase ref
                 var dbURL = "https://rfpcards.firebaseio.com/"
                 var ref = new Firebase(dbURL + '/RFPs/');
@@ -148,18 +149,42 @@
                     var equalQuarters = total / 4
                     for (i = 0; i < equalQuarters; i++) {
                         $scope.tickets.$add( $scope.onTheHour );
+                        plusOne(equalQuarters);
                     }
                     for (i = 0; i < equalQuarters; i++) {
                         $scope.tickets.$add( $scope.quarterPast );
+                        plusOne(equalQuarters);
                     }
                     for (i = 0; i < equalQuarters; i++) {
                         $scope.tickets.$add( $scope.halfPast );
+                        plusOne(equalQuarters);
                     }
                     for (i = 0; i < equalQuarters; i++) {
                         $scope.tickets.$add( $scope.quarterTo );
+                        plusOne(equalQuarters);
                     }
                 }
+
+                
+                // Keep the counter going!
+                var upvotesRef = new Firebase(dbURL + '/RFPCount/');
+                
+                $scope.ticketCount = $firebaseArray(upvotesRef);
+ 
+                
+                function plusOne(num) {
+                upvotesRef.transaction(function (current_value) {
+                    return (current_value || 0) + num;
+                });
+                }
+                
+                $scope.resetCount= function(){
+                    upvotesRef.remove();
+                }
+
+
             });
+
         </script>
         <style>
             .smallText {
@@ -273,18 +298,18 @@
                             <input type="number" name="input" ng-model="totals.twelve" min="4" max="99" required>
                         </label>
                     </div>
-                    
+
                     <div class="col-xs-3">
                         <label>Total for 1-2: 
                             <input type="number" name="input" ng-model="totals.one" min="4" max="99" required>
                         </label>
                     </div>
-                    
+
                 </div>
-                
+
                 <br>
                 <br>
-                
+
                 <div class="row">
                     <div class="col-xs-3">
                         <label>Total for 2-3: 
@@ -303,18 +328,18 @@
                             <input type="number" name="input" ng-model="totals.four" min="4" max="99" required>
                         </label>
                     </div>
-                    
+
                     <div class="col-xs-3">
                         <label>Total for 5-6: 
                             <input type="number" name="input" ng-model="totals.five" min="4" max="99" required>
                         </label>
                     </div>
-                    
+
                 </div>
-                
+
                 <br>
                 <br>
-                
+
                 <div class="row">
                     <div class="col-xs-6">
                         <label>Total for 6-7: 
@@ -327,13 +352,14 @@
                             <input type="number" name="input" ng-model="totals.seven" min="4" max="99" required>
                         </label>
                     </div>
-                    
+
                 </div>
             </div>
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal"
                         ng-click="deleteAll();
+                                  resetCount();
                                   createTickets(totals.ten, 10);
                                   createTickets(totals.eleven, 11);
                                   createTickets(totals.twelve, 12);
@@ -370,7 +396,7 @@
 
 <div class="container-fluid text-center">
 
-    <div class="spacer"></div>
+    <div class="spacer"><h1>{{ ticketCount }}</h1></div>
 
     <div class="horizontalScroll">
         <div class="row">
