@@ -193,9 +193,9 @@
                 // create a synchronized array
                 // click on `index.html` above to see it used in the DOM!
                 $scope.ticketCount = $firebaseArray(countRef);
-                
+
                 //////////////////////////////
-                
+
                 var variableRef = new Firebase(dbURL + 'RFPVariable');
                 // create a synchronized array
                 // click on `index.html` above to see it used in the DOM!
@@ -217,13 +217,8 @@
 
         </script>
         <style>
-            .smallText {
-                font-size: 14px;
-            }
-            .navbar {
-                -webkit-border-radius: 0;
-                -moz-border-radius: 0;
-                border-radius: 0;
+            p {
+                font-size: 1.5vw;
             }
             /* The heart of the matter */
             .horizontalScroll > .row {
@@ -240,55 +235,123 @@
                 background: rgb(211, 211, 211);
                 height: 100vh;
             }
-            /* Decorations
-            .col-xs-3 { color: #fff; padding-left: 0px; padding-right: 0px; padding-top: 10%}
-            .col-xs-3:nth-child(8n+1) { background: rgb(0, 0, 255); }
-            .col-xs-3:nth-child(8n+2) { background: rgb(0, 0, 240); }
-            .col-xs-3:nth-child(8n+3) { background: rgb(0, 0, 225); }
-            .col-xs-3:nth-child(8n+4) { background: rgb(0, 0, 210); }
-            .col-xs-3:nth-child(8n+5) { background: rgb(0, 0, 195); }
-            .col-xs-3:nth-child(8n+6) { background: rgb(0, 0, 170); }
-            .col-xs-3:nth-child(8n+7) { background: rgb(0, 0, 145); }
-            .col-xs-3:nth-child(8n+8) { background: rgb(0, 0, 120); }
-            */
             .ticket {
-                height: 70vh;
-                padding-left: 0px;
-                padding-right: 0px;
-                margin-left: 5px;
-                margin-right: 5px;
+                padding: 0px;
+                margin-left: .8vw;
+                margin-right: .8vw;
                 border-style: solid;
                 border-width: 0px;
+                white-space: normal;
+
             }
             .ticketHead {
                 background: rgb(33, 75, 116);
-                height: 15%;
+                height: 10vh;
                 color: white;
-                font-size: 2em;
-                padding-top: 10px;
-                border-top-left-radius: .5em;
-                border-top-right-radius: .5em;
+                font-size: 2.5vw;
+                line-height: 10vh;
+                border-top-left-radius: 1.2vw;
+                border-top-right-radius: 1.2vw;
             }
             .ticketBody {
                 background-color: white;
-                height: 70%;
+                height: 60vh;
+                color: black;
+                font-size: 3vw;
+                padding: 25vh 1vh 1vh 1vh;
+
             }
             .ticketFooter {
-                height 15%;
-                padding-top: 10px;
-                padding-bottom: 10px;
+                height 10vh;
                 background-color: white;
-                border-bottom-left-radius: 1.5em;
-                border-bottom-right-radius: 1.5em;
+                border-bottom-left-radius: 1.2vw;
+                border-bottom-right-radius: 1.2vw;
             }
             .spacer {
-                height: 10vh;
+                height: 9.5vh;
+                color: white;
+                font-size: 2vw;
+                line-height: 10vh;
             }
             .navbar {
-                margin-bottom: 0px;
-                min-height: 5vh;
+                -webkit-border-radius: 0;
+                -moz-border-radius: 0;
+                border-radius: 0;
+                margin: 0px;
+                padding: 0px;
+
             }
+
+            /* Check mark */
+            @import "bourbon";
+            .checkmark__circle {
+                stroke-dasharray: 166;
+                stroke-dashoffset: 166;
+                stroke-width: 2;
+                stroke-miterlimit: 10;
+                stroke: #7ac142;
+                fill: none;
+                animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+            }
+            .checkmark {
+                width: 140px;
+                height: 140px;
+                border-radius: 50%;
+                display: block;
+                stroke-width: 5;
+                stroke: #fff;
+                stroke-miterlimit: 10;
+                margin: 10% auto;
+                box-shadow: inset 0px 0px 0px #7ac142;
+                animation: fill 0.4s ease-in-out 0.4s forwards, scale 0.3s ease-in-out 0.9s both;
+            }
+            .checkmark__check {
+                transform-origin: 50% 50%;
+                stroke-dasharray: 120;
+                stroke-dashoffset: 120;
+                animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+            }
+            @keyframes stroke {
+                100% {
+                    stroke-dashoffset: 0;
+                }
+            }
+            @keyframes scale {
+                0%, 100% {
+                    transform: none;
+                }
+                50% {
+                    transform: scale3d(1.1, 1.1, 1);
+                }
+            }
+            @keyframes fill {
+                100% {
+                    box-shadow: inset 0px 0px 0px 75px #7ac142;
+                }
+            }
+
+            /* Modal Control */
+            .modal-backdrop {
+
+                background-color: rgba(0,0,0,.0001) !important;
+            }
+            .modal-dialog {
+                background-color: rgba(0,0,0,.0001) !important;
+            }
+
         </style>
+
+        <script>
+            $(function(){
+                $('#tickModal').on('show.bs.modal', function(){
+                    var myModal = $(this);
+                    clearTimeout(myModal.data('hideInterval'));
+                    myModal.data('hideInterval', setTimeout(function(){
+                        myModal.modal('hide');
+                    }, 2100));
+                });
+            });
+        </script>
     </head>
     <body ng-controller="RootCtrl">
 
@@ -425,18 +488,34 @@
             <div class="modal-content" ng-repeat=" id in variableID">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Success!</h4>
+                    <h4 class="modal-title">{{id.time}}</h4>
                 </div>
                 <div class="modal-body text-center">
-                    <h1>Are you sure you want to use {{id.time}}</h1>
+                    <h1>Are you sure you want to use <br>{{id.time}}?</h1>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default text-center" data-dismiss="modal" ng-click="deleteTicket(id.variable); minusOne()">Confirm</button>
+                    <button type="button" class="btn btn-default text-center" data-dismiss="modal" ng-click="deleteTicket(id.variable); minusOne()" data-toggle="modal" data-target="#tickModal">Confirm</button>
                 </div>
             </div>
         </div>
     </div>
 
+
+
+    <!-- Tick Modal -->
+    <div id="tickModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content" ng-repeat=" id in variableID">
+                <div class="modal-body text-center">
+                    <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130 130">
+                        <circle class="checkmark__circle" cx="65" cy="65" r="62.5" fill="none"/>
+                        <path class="checkmark__check" fill="none" d="M35.25 68 l17.75 18 41.75-42"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="container-fluid text-center">
 
         <div class="spacer">
@@ -449,7 +528,9 @@
                         <strong>{{ticket.time}}</strong>
                     </div>
                     <div class="ticketBody">
-                        {{ticket.repairID}}
+                        <p>{{ticket.time}} <Br>
+                            Click below to use this ticket
+                            </p>
                     </div>
                     <div class="ticketFooter">
                         <button class="btn btn-secondary" data-toggle="modal" data-target="#successModal" ng-click="variable(ticket.$id, ticket.time)">Use</button>
@@ -460,7 +541,9 @@
 
         <div class="spacer"  ng-repeat="count in ticketCount">
 
-            <h1> Total Tickets: {{ count.count }}</h1></div>
+            Total Tickets: {{ count.count }} 
+
+        </div>
 
     </div>
     </div>
