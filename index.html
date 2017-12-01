@@ -215,6 +215,7 @@
                 }
             });
 
+
         </script>
         <style>
             p {
@@ -232,7 +233,7 @@
                 float: none;
             }
             .greyBackground {
-                background: rgb(211, 211, 211);
+                background: rgb(249, 249, 249);
                 height: 100vh;
             }
             .ticket {
@@ -245,7 +246,7 @@
 
             }
             .ticketHead {
-                background: rgb(33, 75, 116);
+                background: rgb(0, 122, 255);
                 height: 10vh;
                 color: white;
                 font-size: 2.5vw;
@@ -266,20 +267,52 @@
                 background-color: white;
                 border-bottom-left-radius: 1.2vw;
                 border-bottom-right-radius: 1.2vw;
+                padding-bottom: 20px;
             }
             .spacer {
                 height: 9.5vh;
-                color: white;
+                color: lightgray;
                 font-size: 2vw;
                 line-height: 10vh;
             }
+
+            /* Nav bar colouring */
             .navbar {
                 -webkit-border-radius: 0;
                 -moz-border-radius: 0;
                 border-radius: 0;
                 margin: 0px;
                 padding: 0px;
+            }
+            .navbar-brand {
+                color: black;
+            }
+            .icon-bar {
+                background-color: black;
+            }
+            .glyphicon {
+                color: black;
+            }
 
+            /* Modal colouring */
+
+            .modal-header {
+                background-color: rgb(255, 45, 85);
+            }
+            .myModal
+            {
+                position: absolute;
+                left: 0;
+                right: 0;
+                top: 0;
+                bottom: 0;
+                margin:auto;
+                display:table;
+                max-width:50%;
+            }
+            .myModal .modal-content
+            {
+                display:table-cell;
             }
 
             /* Check mark */
@@ -358,7 +391,7 @@
         <div class="greyBackground">
 
             <!-- Navbar -->
-            <nav class="navbar navbar-inverse">
+            <nav class="navbar">
                 <div class="container-fluid">
                     <div class="navbar-header">
                         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -370,7 +403,7 @@
                     </div>
                     <div class="collapse navbar-collapse" id="myNavbar">
                         <ul class="nav navbar-nav navbar-right">
-                            <li><a href="#" id="Set" button data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-user"></span></button> Set Totals</a></li>
+                            <li><a href="#" id="Set" button data-toggle="modal" data-target="#myModal"></button><span class="glyphicon glyphicon-tasks "></span></a></li>
                     </ul>
                 </div>
         </div>
@@ -378,7 +411,7 @@
 
     <!-- Modal -->
     <div id="myModal" class="modal fade" role="dialog">
-        <div class="modal-dialog">
+        <div class="modal-dialog myModal">
             <!-- Modal content-->
             <div class="modal-content text-center">
                 <div class="modal-header">
@@ -447,13 +480,13 @@
                     <br>
 
                     <div class="row">
-                        <div class="col-xs-6">
+                        <div class="col-xs-3 col-md-offset-3">
                             <label>Total for 6-7: 
                                 <input type="number" name="input" ng-model="totals.six" min="4" max="99" required>
                             </label>
                         </div>
 
-                        <div class="col-xs-6">
+                        <div class="col-xs-3">
                             <label>Total for 7-8: 
                                 <input type="number" name="input" ng-model="totals.seven" min="4" max="99" required>
                             </label>
@@ -483,7 +516,7 @@
     </div>
     <!-- Validation Modal -->
     <div id="successModal" class="modal fade" role="dialog">
-        <div class="modal-dialog">
+        <div class="modal-dialog myModal">
             <!-- Modal content-->
             <div class="modal-content" ng-repeat=" id in variableID">
                 <div class="modal-header">
@@ -494,7 +527,9 @@
                     <h1>Are you sure you want to use <br>{{id.time}}?</h1>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default text-center" data-dismiss="modal" ng-click="deleteTicket(id.variable); minusOne()" data-toggle="modal" data-target="#tickModal">Confirm</button>
+                    <button type="button" class="btn btn-danger text-center pull-left" data-dismiss="modal">Go Back</button>
+
+                    <button type="button" class="btn btn-success text-center pull-right" data-dismiss="modal" ng-click="deleteTicket(id.variable); minusOne()" data-toggle="modal" data-target="#tickModal">Confirm</button>
                 </div>
             </div>
         </div>
@@ -504,14 +539,14 @@
 
     <!-- Tick Modal -->
     <div id="tickModal" class="modal fade" role="dialog">
-        <div class="modal-dialog">
+        <div class="modal-dialog myModal">
             <!-- Modal content-->
             <div class="modal-content" ng-repeat=" id in variableID">
                 <div class="modal-body text-center">
                     <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130 130">
                         <circle class="checkmark__circle" cx="65" cy="65" r="62.5" fill="none"/>
                         <path class="checkmark__check" fill="none" d="M35.25 68 l17.75 18 41.75-42"/>
-                        
+
                         <h2>See you back at {{id.time}}</h2>
                     </svg>
                 </div>
@@ -535,7 +570,7 @@
                             </p>
                     </div>
                     <div class="ticketFooter">
-                        <button class="btn btn-secondary" data-toggle="modal" data-target="#successModal" ng-click="variable(ticket.$id, ticket.time)">Use</button>
+                        <button class="btn btn-info" data-toggle="modal" data-target="#successModal" ng-click="variable(ticket.$id, ticket.time)">Use</button>
                     </div>
                 </div>
             </div>
