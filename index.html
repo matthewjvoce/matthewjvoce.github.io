@@ -234,7 +234,7 @@
             }
             .greyBackground {
                 background: rgb(249, 249, 249);
-                height: 90vh;
+                height: 100vh;
             }
             .ticket {
                 padding: 0px;
@@ -256,7 +256,7 @@
             }
             .ticketBody {
                 background-color: white;
-                height: 45vh;
+                height: 55vh;
                 color: black;
                 font-size: 3vw;
                 padding: 25vh 1vh 1vh 1vh;
@@ -388,8 +388,10 @@
         </script>
     </head>
     <body ng-controller="RootCtrl">
-        
-        <header>
+
+
+        <div class="greyBackground">
+            
             <!-- Navbar -->
             <nav class="navbar">
                 <div class="container-fluid">
@@ -408,9 +410,6 @@
                 </div>
         </div>
         </nav>
-        </header>
-
-        <div class="greyBackground">
 
     <!-- Modal -->
     <div id="myModal" class="modal fade" role="dialog">
@@ -589,4 +588,12 @@
     </div>
 
 </body>
+
+<script>
+    window.addEventListener("orientationchange", function() {
+  if (navigator.userAgent.match(/(iPhone|iPod|iPad)/i)) {
+    document.documentElement.innerHTML = document.documentElement.innerHTML;
+  }
+}, false);
+</script>
 </html>
