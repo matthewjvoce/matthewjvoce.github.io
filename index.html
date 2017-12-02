@@ -592,8 +592,9 @@
 </body>
 
 <script>
-    var viewportHeight = $('.greyBackground').outerHeight();
-    $('.greyBackground').css({ height: viewportHeight });
-}, false);
+    if ($('body').hasClass('mobile')) {
+  var viewportHeight = $('.greyBackground').outerHeight();
+  $('.greyBackground').css({ height: window.innerHeight });
+}
 </script>
 </html>
