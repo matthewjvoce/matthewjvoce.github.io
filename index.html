@@ -281,7 +281,7 @@
                 line-height: 10vh;
             }
 
-            /* Nav bar colouring */
+            /* Nav bar */
             .navbar {
                 -webkit-border-radius: 0;
                 -moz-border-radius: 0;
@@ -296,10 +296,108 @@
             .icon-bar {
                 background-color: black;
             }
-            .glyphicon {
-                color: black;
+
+            .hamburger {
+                cursor: pointer;
+                position: relative;
+                top: -1.5vh;
+                left: -1.5vh;
+                width: 48px;
+                height: 48px;
+                transition: all 0.25s;
+            }
+            .apple {
+                position: absolute;
+                top: 1.5vh;
+                right: 1.5vh;
+                font-size: 18px;
+                line-height: 16px;
+                margin: 4px;
             }
 
+            .hamburger__top-bun,
+            .hamburger__bottom-bun {
+                content: '';
+                display: block;
+                position: absolute;
+                left: 15px;
+                width: 18px;
+                height: 1px;
+                background: #000;
+                transform: rotate(0);
+                transition: all 0.75s;
+            }
+
+            .hamburger:hover [class*="-bun"] {
+                background: rgb(0, 122, 255);
+            }
+
+            .hamburger__top-bun {
+                top: 23px;
+                transform: translateY(-3px);
+            }
+
+            .hamburger__bottom-bun {
+                bottom: 23px;
+                transform: translateY(3px);
+            }
+
+            .open {
+                transform: rotate(90deg);
+            }
+
+            .open .hamburger__top-bun {
+                transform: 
+                    rotate(45deg) 
+                    translateY(0px);
+            }
+
+            .open .hamburger__bottom-bun {
+                transform: 
+                    rotate(-45deg) 
+                    translateY(0px);
+            }
+            .sidenav {
+                height: 100%;
+                width: 0;
+                position: absolute;
+                z-index: 1;
+                top: 0;
+                left: 0;
+                background-color: #111;
+                overflow-x: hidden;
+                transition: 0.5s;
+                padding-top: 2vh;
+                white-space: nowrap;
+            }
+
+            .sidenav h4 {
+                padding: 2vh 2vh 2vh 2vh;
+                text-decoration: none;
+                font-size: 2vh;
+                color: #818181;
+                display: block;
+            }
+
+            .sidenav button {
+                
+            }
+            
+            .sidenav input {
+                background-color: transparent;
+                border-style: none;
+                color: rgb(0, 122, 255);
+            }
+
+            #main {
+                transition: margin-left .5s;
+                padding: 16px;
+            }
+
+            @media screen and (max-height: 450px) {
+                .sidenav {padding-top: 15px;}
+                .sidenav a {font-size: 18px;}
+            }
             /* Modal colouring */
 
             .modal-header {
@@ -395,212 +493,160 @@
     <body ng-controller="RootCtrl">
 
 
-        <div class="greyBackground">
-            
+        <div id="main" class="greyBackground">
+
             <!-- Navbar -->
-            <nav class="navbar">
-                <div class="container-fluid">
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        <a class="navbar-brand" href="#"></a>
-                    </div>
-                    <div class="collapse navbar-collapse" id="myNavbar">
-                        <ul class="nav navbar-nav navbar-right">
-                            <li><a href="#" id="Set" button data-toggle="modal" data-target="#myModal"></button><span class="glyphicon glyphicon-tasks "></span></a></li>
-                    </ul>
-                </div>
-        </div>
-        </nav>
-            
-   
 
-    <!-- Modal -->
-    <div id="myModal" class="modal fade" role="dialog">
-        <div class="modal-dialog myModal">
-            <!-- Modal content-->
-            <div class="modal-content text-center">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Set totals for the day.</h4>
+            <div class="hamburger">
+                <span class="hamburger__top-bun"></span>
+                <span class="hamburger__bottom-bun"></span>
+            </div>
+            <div class="apple">
+                
+            </div>
+
+            <div id="mySidenav" class="sidenav text-center">
+                <h1>Set Totals</h1>
+                <br>
+                <h4>Total for 10-11: <input type="number" name="input" ng-model="totals.ten" min="4" max="99" required></h4>
+                <h4>Total for 11-12: <input type="number" name="input" ng-model="totals.eleven" min="4" max="99" required></h4>
+                <h4>Total for 12-1: <input type="number" name="input" ng-model="totals.twelve" min="4" max="99" required></h4>
+                <h4>Total for 1-2: <input type="number" name="input" ng-model="totals.one" min="4" max="99" required></h4>
+                <h4>Total for 2-3: <input type="number" name="input" ng-model="totals.two" min="4" max="99" required></h4>
+                <h4>Total for 3-4: <input type="number" name="input" ng-model="totals.three" min="4" max="99" required></h4>
+                <h4>Total for 4-5: <input type="number" name="input" ng-model="totals.four" min="4" max="99" required></h4>
+                <h4>Total for 5-6: <input type="number" name="input" ng-model="totals.five" min="4" max="99" required></h4>
+                <h4>Total for 6-7: <input type="number" name="input" ng-model="totals.six" min="4" max="99" required></h4>
+                <h4>Total for 7-8: <input type="number" name="input" ng-model="totals.seven" min="4" max="99" required></h4>
+                <br>
+                <button type="button" class="btn btn-default" onclick="closeNav()" 
+                        ng-click="deleteAll();
+                                  resetCount();
+                                  createTickets(totals.ten, 10);
+                                  createTickets(totals.eleven, 11);
+                                  createTickets(totals.twelve, 12);
+                                  createTickets(totals.one, 1);
+                                  createTickets(totals.two, 2);
+                                  createTickets(totals.three, 3);
+                                  createTickets(totals.four, 4);
+                                  createTickets(totals.five, 5);
+                                  createTickets(totals.six, 6);
+                                  createTickets(totals.seven, 7);"
+                        >Set Totals and Close</button>
+            </div>
+
+
+
+
+            <!-- Validation Modal -->
+            <div id="successModal" class="modal fade" role="dialog">
+                <div class="modal-dialog myModal">
+                    <!-- Modal content-->
+                    <div class="modal-content" ng-repeat=" id in variableID">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            {{id.time}}
+                        </div>
+                        <div class="modal-body text-center">
+                            <h1>Are you sure you want to use <br>{{id.time}}?</h1>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger text-center pull-left" data-dismiss="modal">Go Back</button>
+
+                            <button type="button" class="btn btn-success text-center pull-right" data-dismiss="modal" ng-click="deleteTicket(id.variable); minusOne()" data-toggle="modal" data-target="#tickModal">Confirm</button>
+                        </div>
+                    </div>
                 </div>
-                <div class="modal-body text-center">
+            </div>
+
+
+            <!-- Tick Modal -->
+            <div id="tickModal" class="modal fade" role="dialog">
+                <div class="modal-dialog myModal">
+                    <!-- Modal content-->
+                    <div class="modal-content" ng-repeat=" id in variableID">
+                        <div class="modal-body text-center">
+                            <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130 130">
+                                <circle class="checkmark__circle" cx="65" cy="65" r="62.5" fill="none"/>
+                                <path class="checkmark__check" fill="none" d="M35.25 68 l17.75 18 41.75-42"/>
+
+                                <h2>See you back at {{id.time}}</h2>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid text-center">
+
+                <div class="spacer">
+                </div>
+
+                <div class="horizontalScroll">
                     <div class="row">
-                        <div class="col-xs-3">
-                            <label>Total for 10-11: 
-                                <input type="number" name="input" ng-model="totals.ten" min="4" max="99" required>
-                            </label>
+                        <div class="col-xs-2 ticket" ng-repeat="ticket in tickets">
+                            <div class="ticketHead">
+                                <strong>{{ticket.time}}</strong>
+                            </div>
+                            <div class="ticketBody">
+                                <p>{{ticket.time}} <Br>
+                                    Click below to use this ticket
+                                    </p>
+                            </div>
+                            <div class="ticketFooter">
+                                <button class="btn btn-info" data-toggle="modal" data-target="#successModal" ng-click="variable(ticket.$id, ticket.time)">Use</button>
+                            </div>
                         </div>
-
-                        <div class="col-xs-3">
-                            <label>Total for 11-12: 
-                                <input type="number" name="input" ng-model="totals.eleven" min="4" max="99" required>
-                            </label>
-                        </div>
-
-                        <div class="col-xs-3">
-                            <label>Total for 12-1: 
-                                <input type="number" name="input" ng-model="totals.twelve" min="4" max="99" required>
-                            </label>
-                        </div>
-
-                        <div class="col-xs-3">
-                            <label>Total for 1-2: 
-                                <input type="number" name="input" ng-model="totals.one" min="4" max="99" required>
-                            </label>
-                        </div>
-
-                    </div>
-
-                    <br>
-                    <br>
-
-                    <div class="row">
-                        <div class="col-xs-3">
-                            <label>Total for 2-3: 
-                                <input type="number" name="input" ng-model="totals.two" min="4" max="99" required>
-                            </label>
-                        </div>
-
-                        <div class="col-xs-3">
-                            <label>Total for 3-4: 
-                                <input type="number" name="input" ng-model="totals.three" min="4" max="99" required>
-                            </label>
-                        </div>
-
-                        <div class="col-xs-3">
-                            <label>Total for 4-5: 
-                                <input type="number" name="input" ng-model="totals.four" min="4" max="99" required>
-                            </label>
-                        </div>
-
-                        <div class="col-xs-3">
-                            <label>Total for 5-6: 
-                                <input type="number" name="input" ng-model="totals.five" min="4" max="99" required>
-                            </label>
-                        </div>
-
-                    </div>
-
-                    <br>
-                    <br>
-
-                    <div class="row">
-                        <div class="col-xs-3 col-md-offset-3">
-                            <label>Total for 6-7: 
-                                <input type="number" name="input" ng-model="totals.six" min="4" max="99" required>
-                            </label>
-                        </div>
-
-                        <div class="col-xs-3">
-                            <label>Total for 7-8: 
-                                <input type="number" name="input" ng-model="totals.seven" min="4" max="99" required>
-                            </label>
-                        </div>
-
                     </div>
                 </div>
 
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal"
-                            ng-click="deleteAll();
-                                      resetCount();
-                                      createTickets(totals.ten, 10);
-                                      createTickets(totals.eleven, 11);
-                                      createTickets(totals.twelve, 12);
-                                      createTickets(totals.one, 1);
-                                      createTickets(totals.two, 2);
-                                      createTickets(totals.three, 3);
-                                      createTickets(totals.four, 4);
-                                      createTickets(totals.five, 5);
-                                      createTickets(totals.six, 6);
-                                      createTickets(totals.seven, 7);"
-                            >Set Totals and Close</button>
+                <div id="thisdiv" class="spacer"  ng-repeat="count in ticketCount">
+
+                    Total Tickets: {{ count.count }} 
+
                 </div>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Validation Modal -->
-    <div id="successModal" class="modal fade" role="dialog">
-        <div class="modal-dialog myModal">
-            <!-- Modal content-->
-            <div class="modal-content" ng-repeat=" id in variableID">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    {{id.time}}
-                </div>
-                <div class="modal-body text-center">
-                    <h1>Are you sure you want to use <br>{{id.time}}?</h1>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger text-center pull-left" data-dismiss="modal">Go Back</button>
 
-                    <button type="button" class="btn btn-success text-center pull-right" data-dismiss="modal" ng-click="deleteTicket(id.variable); minusOne()" data-toggle="modal" data-target="#tickModal">Confirm</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-
-    <!-- Tick Modal -->
-    <div id="tickModal" class="modal fade" role="dialog">
-        <div class="modal-dialog myModal">
-            <!-- Modal content-->
-            <div class="modal-content" ng-repeat=" id in variableID">
-                <div class="modal-body text-center">
-                    <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130 130">
-                        <circle class="checkmark__circle" cx="65" cy="65" r="62.5" fill="none"/>
-                        <path class="checkmark__check" fill="none" d="M35.25 68 l17.75 18 41.75-42"/>
-
-                        <h2>See you back at {{id.time}}</h2>
-                    </svg>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="container-fluid text-center">
-
-        <div class="spacer">
-        </div>
-
-        <div class="horizontalScroll">
-            <div class="row">
-                <div class="col-xs-2 ticket" ng-repeat="ticket in tickets">
-                    <div class="ticketHead">
-                        <strong>{{ticket.time}}</strong>
-                    </div>
-                    <div class="ticketBody">
-                        <p>{{ticket.time}} <Br>
-                            Click below to use this ticket
-                            </p>
-                    </div>
-                    <div class="ticketFooter">
-                        <button class="btn btn-info" data-toggle="modal" data-target="#successModal" ng-click="variable(ticket.$id, ticket.time)">Use</button>
-                    </div>
-                </div>
             </div>
         </div>
 
-        <div class="spacer"  ng-repeat="count in ticketCount">
+    </body>
 
-            Total Tickets: {{ count.count }} 
+    <script>
+        if ($('body').hasClass('mobile')) {
+            var viewportHeight = $('.greyBackground').outerHeight();
+            $('.greyBackground').css({ height: window.innerHeight });
+        }
+    </script>
+    <script>
 
-        </div>
+        var trigger = 0
 
-    </div>
-    </div>
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "33vw";
+            document.getElementById("main").style.marginLeft = "33vw";
+            trigger = 1
+        }
 
-</body>
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+            document.getElementById("main").style.marginLeft= "0";
+            trigger = 0
+            $('#thisdiv').load(document.URL +  ' #thisdiv');
+        }
 
-<script>
-    if ($('body').hasClass('mobile')) {
-  var viewportHeight = $('.greyBackground').outerHeight();
-  $('.greyBackground').css({ height: window.innerHeight });
-}
-</script>
+        function openClose() {
+            if (trigger == 0) {
+                openNav()
+            }
+            else if (trigger == 1) {
+                closeNav()
+            }
+        }
+
+        $('.hamburger').click (function(){
+            $(this).toggleClass('open');
+            openClose()
+            $('#thisdiv').load(document.URL +  ' #thisdiv');
+        });
+
+    </script>
 </html>
