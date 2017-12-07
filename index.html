@@ -599,7 +599,7 @@
                     </div>
                 </div>
 
-                <div id="thisdiv" class="spacer"  ng-repeat="count in ticketCount">
+                <div class="spacer"  ng-repeat="count in ticketCount">
 
                     Total Tickets: {{ count.count }} 
 
@@ -630,7 +630,6 @@
             document.getElementById("mySidenav").style.width = "0";
             document.getElementById("main").style.marginLeft= "0";
             trigger = 0
-            $('#thisdiv').load(document.URL +  ' #thisdiv');
         }
 
         function openClose() {
@@ -645,7 +644,6 @@
         $('.hamburger').click (function(){
             $(this).toggleClass('open');
             openClose()
-            $('#thisdiv').load(document.URL +  ' #thisdiv');
         });
 
     </script>
